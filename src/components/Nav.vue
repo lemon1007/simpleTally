@@ -36,17 +36,18 @@ export default {
 
 nav {
   display: flex;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
   flex-direction: row;
+  padding-bottom: 2px;
+  height: 10vh;
+  box-shadow: 0 0 0 0.5px rgba(0,0,0,0.25);
 
   > .item {
-    padding: 2px 0;
+    padding: 7px 0;
     width: 33.33333%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    color: darkgrey;
 
     .icon {
       width: 32px;
