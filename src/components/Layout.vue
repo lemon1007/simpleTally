@@ -23,7 +23,12 @@ export default {
 }
 
 .content {
-  flex-grow: 0.95;
+  flex-grow: 1;
   overflow: scroll;
+  padding-bottom: 20px;
+}
+
+.content::-webkit-scrollbar {
+  display: none;
 }
 </style>
