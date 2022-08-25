@@ -3,7 +3,7 @@
     <div class="content">
       <slot/>
     </div>
-<!--    导航标签引入-->
+    <!--    导航标签引入-->
     <Nav/>
   </div>
 </template>
