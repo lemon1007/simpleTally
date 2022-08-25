@@ -1,14 +1,15 @@
 <template>
-  <div>
-    <Nav/>
-    标签页面
-  </div>
+  <Layout>
+    <p>Labels.vue</p>
+  </Layout>
 </template>
 
 <script lang="ts">
+import Layout from '@/components/Layout.vue';
 
 export default {
   name: 'Labels',
+  components: {Layout}
 };
 </script>
 
