@@ -1,11 +1,10 @@
 <template>
-  <div id="tabControl">
-    <router-link to="/labels">labels</router-link>
+  <div class="nav">
+    <router-link to="/labels">标签</router-link>
     <span> | </span>
-    <router-link to="/money">money</router-link>
+    <router-link to="/money">记账</router-link>
     <span> | </span>
-    <router-link to="/statistics">statistics</router-link>
-    <hr>
+    <router-link to="/statistics">统计</router-link>
   </div>
 </template>
 
@@ -15,6 +14,8 @@ export default {
 };
 </script>
 
-<style lang="css" scoped>
-
+<style lang="scss" scoped>
+  .nav{
+    border: 1px red solid;
+  }
 </style>

@@ -1,14 +1,15 @@
 <template>
   <div>
-    <Nav/>
-    标签页面
+    404 NotFound
+    <div>
+      <router-link to="/">返回首页</router-link>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-
 export default {
-  name: 'Labels',
+  name: 'NotFound'
 };
 </script>
 
