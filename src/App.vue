@@ -1,13 +1,6 @@
 <template>
   <div id="app">
-    <div id="tabControl">
-      <router-link to="/labels">labels</router-link>
-      <span> | </span>
-      <router-link to="/money">money</router-link>
-      <span> | </span>
-      <router-link to="/statistics">statistics</router-link>
-      <hr>
-    </div>
+<!-- 导航（路由占位）-->
     <router-view/>
   </div>
 </template>
