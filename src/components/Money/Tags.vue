@@ -1,34 +1,56 @@
 <template>
   <div class="tags">
     <ul class="current">
-      <li class="selected">
-        <Icon name="clothes" class="icons"/>
-        <span>购物消费</span>
+      <!--      <li class="selected">-->
+      <!--        <Icon name="clothes" class="icons"/>-->
+      <!--        <span>购物消费</span>-->
+      <!--      </li>-->
+      <!--      <li>-->
+      <!--        <Icon name="foods" class="icons"/>-->
+      <!--        <span>食品餐饮</span>-->
+      <!--      </li>-->
+      <!--      <li>-->
+      <!--        <Icon name="houses" class="icons"/>-->
+      <!--        <span>居家生活</span>-->
+      <!--      </li>-->
+      <!--      <li>-->
+      <!--        <Icon name="traffic" class="icons"/>-->
+      <!--        <span>出行交通</span>-->
+      <!--      </li>-->
+      <!--      <li class="addBtn">-->
+      <!--        <Icon name="add" class="icons"/>-->
+      <!--        <span>新增标签</span>-->
+      <!--      </li>-->
+
+      <li v-for="(tags,index) in tagSource" :key="index"
+          :class="selectedTags.indexOf(tags)>=0 && 'selected'"
+          @click="selectToggle(tags)">
+        <Icon :name="tags.icon" class="icons"></Icon>
+        <span>{{ tags.name }}</span>
       </li>
-      <li>
-        <Icon name="foods" class="icons"/>
-        <span>食品餐饮</span>
-      </li>
-      <li>
-        <Icon name="houses" class="icons"/>
-        <span>居家生活</span>
-      </li>
-      <li>
-        <Icon name="traffic" class="icons"/>
-        <span>出行交通</span>
-      </li>
-      <li class="addBtn">
-        <Icon name="add" class="icons"/>
-        <span>新增标签</span>
-      </li>
+
     </ul>
   </div>
 </template>
 
 <script lang="ts">
 
-export default {
-  name: 'Tags'
+import Vue from 'vue';
+import {Component, Prop} from 'vue-property-decorator';
+
+@Component
+export default class Tags extends Vue {
+  @Prop(Array) tagSource: string[] | undefined;
+  selectedTags: string[] = [];
+
+  selectToggle(tags: string) {
+    const index = this.selectedTags.indexOf(tags);
+    if (index >= 0) {
+      this.selectedTags.splice(index, 1);
+    } else {
+      this.selectedTags.push(tags);
+    }
+  }
 };
 </script>
 

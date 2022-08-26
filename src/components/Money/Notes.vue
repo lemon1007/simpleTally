@@ -3,6 +3,8 @@
     <label class="notes">
       <Icon name="notes" class="icons"/>
       <span class="name">备注</span>
+<!--:value="value" @input="$event.target.value"可以简写为v-model="value"-->
+<!--这样写时，在下面script中只需要再定义value初始值即value = ""即可-->
       <input type="text"
              :value="value"
              @input="onInput"
