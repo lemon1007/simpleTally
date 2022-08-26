@@ -27,7 +27,7 @@ try {
 
 
 export default {
-  name: 'nav',
+  name: 'MyNav',
 };
 </script>
 
