@@ -28,7 +28,7 @@ export default {
   }
 
   input {
-    height: 7vh;
+    min-height: 7vh;
     border: none;
     padding-left: 10px;
     flex-grow: 1;

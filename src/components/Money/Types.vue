@@ -14,7 +14,6 @@
 
 <script lang="ts">
 
-// TypeScript实现功能
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 
@@ -42,7 +41,7 @@ export default class Types extends Vue {
 
   > li {
     width: 50%;
-    height: 8vh;
+    min-height: 9vh;
     display: flex;
     justify-content: center;
     align-items: center;

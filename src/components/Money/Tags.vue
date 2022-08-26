@@ -54,18 +54,21 @@ export default {
       margin-top: 16px;
       width: 64px;
       height: 64px;
-      border-radius: 50%;
-      background-color: #f5f5f5;
       font-size: 12px;
 
       .icons {
-        width: 32px;
-        height: 32px;
+        margin-bottom: 2px;
+        width: 43px;
+        height: 43px;
+        padding: 7px;
+        border-radius: 50%;
+        background-color: #f5f5f5;
       }
 
-      &.selected{
-        background-color: $color-theme;
-        color: #fff;
+      &.selected {
+        .icons {
+          background-color: $color-theme;
+        }
       }
     }
   }
