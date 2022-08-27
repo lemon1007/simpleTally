@@ -29,7 +29,7 @@ export default class TagList extends Vue {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: start;
+  justify-content: flex-start;
   padding: 8px 10px 8px 10px;
   overflow: scroll;
 
