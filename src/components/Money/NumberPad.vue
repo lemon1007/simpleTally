@@ -70,6 +70,8 @@ export default class NumberPad extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/style/helper.scss";
+
 .numberPad {
   .output {
     height: 7vh;
@@ -94,7 +96,7 @@ export default class NumberPad extends Vue {
       background: #f5f5f5;
 
       &.ok {
-        background-color: #ffe600;
+        background-color: $color-theme;
       }
 
       .deleteFont {

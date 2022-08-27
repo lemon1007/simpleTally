@@ -4,6 +4,8 @@ import Money from '@/views/Money.vue';
 import Labels from '@/views/Labels.vue';
 import Statistics from '@/views/Statistics.vue';
 import NotFound from '@/views/NotFound.vue';
+import AddTag from '@/views/AddTag.vue';
+
 
 Vue.use(VueRouter);
 
@@ -18,6 +20,11 @@ const routes: Array<RouteConfig> = [
     component: Money
   },
   {
+    path: '/add-tag',
+    name: 'add-tag',
+    component: AddTag
+  },
+  {
     path: '/labels',
     name: 'labels',
     component: Labels
@@ -29,7 +36,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '*',
-    name:'notfound',
+    name: 'notfound',
     component: NotFound
   }
 ];

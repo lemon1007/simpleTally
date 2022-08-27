@@ -24,7 +24,6 @@ export default {
         {name: '食品餐饮', icon: 'foods'},
         {name: '居家生活', icon: 'houses'},
         {name: '出行交通', icon: 'traffic'},
-        {name: '新增标签', icon: 'add'}
       ],
     };
   }
