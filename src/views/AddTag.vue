@@ -29,7 +29,7 @@ export default class addTags extends Vue {
     //   path: '/',
     //   query: {newMsg: this.msgFromNavBar}
     // });
-    this.$router.replace('/');
+    this.$router.replace('/')
     Public.$emit('xxx', this.msgFromNavBar);
   }
 }

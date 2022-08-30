@@ -31,7 +31,7 @@ export default class Money extends Vue {
   ];
 
   created() {
-    const newMsg = this.$route.query.newMsg;
+    // const newMsg = this.$route.query.newMsg;
     // this.newMsg = newMsg;
     // this.tags = [...this.tags,{name: this.newMsg[0], icon: this.newMsg[1]}];
     Public.$on('xxx', (val: string) => {

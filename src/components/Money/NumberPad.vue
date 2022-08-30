@@ -1,24 +1,24 @@
 <template>
   <div class="numberPad">
-    <div class="output">{{ output }}</div>
+    <div class="output" id="inp">{{ output }}</div>
     <div class="buttons">
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
       <button @click="inputContent">3</button>
-      <button @click="inputContent">+</button>
+      <button @click="remove" data-type="remove">
+        <Icon name="delete" class="deleteFont"/>
+      </button>
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
-      <button @click="inputContent">-</button>
+      <button @click="inputContent" data-type="add">+</button>
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
-      <button @click="count">=</button>
+      <button @click="inputContent" data-type="sub">-</button>
       <button @click="inputContent">0</button>
       <button @click="inputContent">.</button>
-      <button @click="remove">
-        <Icon name="delete" class="deleteFont"/>
-      </button>
+      <button @click="count" data-type="count">=</button>
       <button class="ok" @click="ok">完成</button>
     </div>
   </div>
@@ -35,6 +35,7 @@ export default class NumberPad extends Vue {
   inputContent(event: MouseEvent) {
     const button = (event.target as HTMLButtonElement);
     const input = button.textContent as string;
+    const len = this.output.length;
     // 初始值为0的相关判定
     if (this.output.length === 16) {return;}
     if (this.output === '0') {
@@ -45,12 +46,30 @@ export default class NumberPad extends Vue {
       }
       return;
     }
-    if (this.output.indexOf('.') >= 0 && input === '.') {return;}
+    // 标点符号的相关判定
+    // if ((this.output[len - 1] === '.' || '+' || '-') &&
+    //     (input === '.' || '+' || '-')) {
+    //   return;
+    // }
     this.output += input;
   }
 
+  // 加减计算,待完善
   count() {
-
+    const addIndex = this.output.indexOf('+');
+    const subIndex = this.output.indexOf('-');
+    const num1 = parseFloat(this.output.slice(0, addIndex));
+    const num2 = parseFloat(this.output.slice(addIndex + 1));
+    const num3 = parseFloat(this.output.slice(0, subIndex));
+    const num4 = parseFloat(this.output.slice(subIndex + 1));
+    if (addIndex >= 0) {
+      this.output = (num1 + num2).toString();
+    }
+    if (subIndex >= 0) {
+      this.output = (num3 - num4).toString();
+    } else {
+      return;
+    }
   }
 
   // 回删功能
@@ -63,10 +82,13 @@ export default class NumberPad extends Vue {
     }
   }
 
+  // 确认完成功能，待完善
   ok() {
 
   }
-};
+}
+
+
 </script>
 
 <style lang="scss" scoped>
