@@ -31,6 +31,7 @@ export default class Tags extends Vue {
     if (len >= 1)
       this.selectedTags = [];
     this.selectedTags.push(tags);
+    this.$emit('update:value', this.selectedTags);
   }
 
   addTags() {
