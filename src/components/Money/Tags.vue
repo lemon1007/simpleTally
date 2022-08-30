@@ -27,16 +27,14 @@ export default class Tags extends Vue {
   selectedTags: string[] = [];
 
   selectToggle(tags: string) {
-    const index = this.selectedTags.indexOf(tags);
-    if (index >= 0) {
-      this.selectedTags.splice(index, 1);
-    } else {
-      this.selectedTags.push(tags);
-    }
+    const len = this.selectedTags.length;
+    if (len >= 1)
+      this.selectedTags = [];
+    this.selectedTags.push(tags);
   }
 
   addTags() {
-    this.$router.replace('/add-tag')
+    this.$router.replace('/add-tag');
   }
 };
 </script>

@@ -1,0 +1,22 @@
+[
+  {
+    "key": "data",
+    "name": "购物消费",
+    "icon": "clothes"
+  },
+  {
+    "key": "data",
+    "name": "食品餐饮",
+    "icon": "foods"
+  },
+  {
+    "key": "data",
+    "name": "居家生活",
+    "icon": "houses"
+  },
+  {
+    "key": "data",
+    "name": "出行交通",
+    "icon": "traffic"
+  }
+]
