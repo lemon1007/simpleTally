@@ -9,6 +9,8 @@
              :value="value"
              @input="onInput"
              placeholder="添加备注">
+      <!--      <Icon class="timer" name="calendar"/>-->
+      <input type="datetime-local" id="initTime">
     </label>
   </div>
 </template>
@@ -31,6 +33,30 @@ export default class Notes extends Vue {
     const input = (event.target as HTMLInputElement);
     this.value = input.value;
   }
+
+  // 初始化时间组件
+  // format: string = '';
+  //
+  // getFormat() {
+  //   const nTime = new Date();
+  //   this.format += nTime.getFullYear() + '-';
+  //   this.format += (nTime.getMonth() + 1) < 10 ? '0' + (nTime.getMonth() + 1) : (nTime.getMonth() + 1);
+  //   this.format += '-';
+  //   this.format += nTime.getDate() < 10 ? '0' + (nTime.getDate()) : (nTime.getDate());
+  //   this.format += 'T';
+  //   this.format += nTime.getHours() < 10 ? '0' + (nTime.getHours()) : (nTime.getHours());
+  //   this.format += ':';
+  //   this.format += nTime.getMinutes() < 10 ? '0' + (nTime.getMinutes()) : (nTime.getMinutes());
+  //   this.format += ':00';
+  // }
+  //
+  // created() {
+  //   const initTime = document.getElementById('initTime')!;
+  //   this.getFormat();
+  //   initTime.value = this.format;
+  // }
+
+
 };
 </script>
 
@@ -48,12 +74,19 @@ export default class Notes extends Vue {
   }
 
   input {
+    width: 100px;
     min-height: 7vh;
     border: none;
     padding-left: 10px;
     flex-grow: 1;
     background-color: transparent;
-    padding-right: 16px;
+    padding-right: 10px;
+  }
+
+  .timer {
+    width: 21px;
+    height: 21px;
+    margin-right: 20px;
   }
 }
 </style>

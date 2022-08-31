@@ -24,35 +24,42 @@ import Public from '@/public';
 
 // 申明一个类型
 type Record = {
-  tags: string[]
+  tags: {
+    name: string
+    icon: string
+  }[]
   notes: string
   type: string
   amount: number
+  createAt?: Date   // 加？表示可以不存在
 }
 
 @Component({
   components: {Layout, Tags, Notes, Types, NumberPad}
 })
 export default class Money extends Vue {
-  tags = [
+  tags: {
+    name: string
+    icon: string
+  }[] = [
     {name: '购物消费', icon: 'clothes'},
     {name: '食品餐饮', icon: 'foods'},
     {name: '居家生活', icon: 'houses'},
     {name: '出行交通', icon: 'traffic'},
   ];
 
-  recordList: Record[] = [];
+  recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
 
   // 对象初始化
   record: Record = {
-    tags: [],
+    tags: [{name: '购物消费', icon: 'clothes'}],
     notes: '',
     type: '-',
     amount: 0
   };
 
   // 获取用户选择的标签
-  onUpdateTags(value: string[]) {
+  onUpdateTags(value: { name: string, icon: string }[]) {
     this.record.tags = value;
   }
 

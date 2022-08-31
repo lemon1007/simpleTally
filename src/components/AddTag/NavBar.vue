@@ -19,8 +19,8 @@ import Public from '@/public';
 
 @Component
 export default class NavBar extends Vue {
-  name = '';
-  icon = '';
+  name: string = '';
+  icon: string = '';
 
   // 返回主页
   returnTags() {
