@@ -21,24 +21,30 @@ import NumberPad from '@/components/Money/NumberPad.vue';
 import {Component, Watch} from 'vue-property-decorator';
 import Vue from 'vue';
 import Public from '@/public';
+import recordListModel from '@/models/recordListModel';
+import tagListModel from '@/models/tagListModel';
 
-const model = require('@/model').default;
+const model = require('@/models/recordListModel').default;
 
-const recordList: RecordItem[] = model.fetch();
+const recordList = recordListModel.fetch();
+const tagList = tagListModel.fetch();
 
 @Component({
   components: {Layout, Tags, Notes, Types, NumberPad}
 })
 export default class Money extends Vue {
-  tags: {
-    name: string
-    icon: string
-  }[] = [
-    {name: '购物消费', icon: 'clothes'},
-    {name: '食品餐饮', icon: 'foods'},
-    {name: '居家生活', icon: 'houses'},
-    {name: '出行交通', icon: 'traffic'},
-  ];
+  // tags: {
+  //   name: string
+  //   icon: string
+  // }[] = [
+  //   {name: '购物消费', icon: 'clothes'},
+  //   {name: '食品餐饮', icon: 'foods'},
+  //   {name: '居家生活', icon: 'houses'},
+  //   {name: '出行交通', icon: 'traffic'},
+  //   {name: '虚拟充值', icon: 'game'},
+  //   {name: '休闲娱乐', icon: 'dianying'},
+  // ];
+  tags = tagList;
 
   recordList: RecordItem[] = recordList;
 

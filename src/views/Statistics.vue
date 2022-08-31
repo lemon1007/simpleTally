@@ -1,6 +1,8 @@
 <template>
   <Layout>
-    <p>Statistics.vue</p>
+    <div class="StatisticsContent">
+
+    </div>
   </Layout>
 </template>
 
@@ -14,5 +16,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.StatisticsContent {
+  min-height: 91vh;
+}
 </style>
