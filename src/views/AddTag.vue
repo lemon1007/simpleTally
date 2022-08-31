@@ -24,10 +24,11 @@ export default class addTags extends Vue {
   getNewMsg(val: string) {
     this.msgFromNavBar = val;
 
+
     // 将值传给Money组件
     // this.$router.push({
     //   path: '/',
-    //   query: {newMsg: this.msgFromNavBar}
+    //   query: {newMsg: deepCloneMsg}
     // });
     this.$router.replace('/')
     Public.$emit('xxx', this.msgFromNavBar);

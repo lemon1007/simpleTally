@@ -1,13 +1,13 @@
 <template>
   <Layout>
-    {{ record }}
     <Types :type="record.type"
            @update:value="onUpdateType"></Types>
     <Tags :tag-source.sync="tags"
           @update:value="onUpdateTags"></Tags>
     <Notes @update:value="onUpdateNotes"></Notes>
-    <NumberPad :amount.sync="record.amount"
-               @update:value="onUpdateAmount"></NumberPad>
+    <NumberPad :amount="record.amount"
+               @update:value="onUpdateAmount"
+               @submit="saveRecord"></NumberPad>
   </Layout>
 </template>
 
@@ -18,7 +18,7 @@ import Tags from '@/components/Money/Tags.vue';
 import Notes from '@/components/Money/Notes.vue';
 import Types from '@/components/Money/Types.vue';
 import NumberPad from '@/components/Money/NumberPad.vue';
-import {Component} from 'vue-property-decorator';
+import {Component, Watch} from 'vue-property-decorator';
 import Vue from 'vue';
 import Public from '@/public';
 
@@ -34,13 +34,14 @@ type Record = {
   components: {Layout, Tags, Notes, Types, NumberPad}
 })
 export default class Money extends Vue {
-  // newMsg = '';
   tags = [
     {name: '购物消费', icon: 'clothes'},
     {name: '食品餐饮', icon: 'foods'},
     {name: '居家生活', icon: 'houses'},
     {name: '出行交通', icon: 'traffic'},
   ];
+
+  recordList: Record[] = [];
 
   // 对象初始化
   record: Record = {
@@ -70,11 +71,22 @@ export default class Money extends Vue {
     this.record.amount = parseFloat(value);
   }
 
+  // 储存用户输入record信息
+  saveRecord() {
+    const deepRecord = JSON.parse(JSON.stringify(this.record));
+    this.recordList.push(deepRecord);
+    console.log(this.recordList);
+  }
+
+  @Watch('recordList')
+  onRecordChange() {
+    window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
+  }
+
   // 获取用户新增标签信息
   created() {
-    // const newMsg = this.$route.query.newMsg;
-    // this.newMsg = newMsg;
-    // this.tags = [...this.tags,{name: this.newMsg[0], icon: this.newMsg[1]}];
+    // const msgFromAddTag = this.$route.query.newMsg as string;
+    // this.tags = [...this.tags, {name: msgFromAddTag[0], icon: msgFromAddTag[1]}];
     Public.$on('xxx', (val: string) => {
       this.tags = [...this.tags, {name: val[0], icon: val[1]}];
       console.log(this.tags);
