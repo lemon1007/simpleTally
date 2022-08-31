@@ -22,19 +22,9 @@ import {Component, Watch} from 'vue-property-decorator';
 import Vue from 'vue';
 import Public from '@/public';
 
-const recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
+const model = require('@/model').default;
 
-// 声明一个类型
-type Record = {
-  tags: {
-    name: string
-    icon: string
-  }[]
-  notes: string
-  type: string
-  amount: number
-  createAt?: Date   // 加？表示可以不存在
-}
+const recordList: RecordItem[] = model.fetch();
 
 @Component({
   components: {Layout, Tags, Notes, Types, NumberPad}
@@ -50,11 +40,11 @@ export default class Money extends Vue {
     {name: '出行交通', icon: 'traffic'},
   ];
 
-  recordList: Record[] = recordList;
+  recordList: RecordItem[] = recordList;
 
   // 对象初始化
-  record: Record = {
-    tags: [{name: '购物消费', icon: 'clothes'}],
+  record: RecordItem = {
+    tags: [],
     notes: '',
     type: '-',
     amount: 0
@@ -82,7 +72,7 @@ export default class Money extends Vue {
 
   // 储存用户输入record信息
   saveRecord() {
-    const deepRecord = JSON.parse(JSON.stringify(this.record));
+    const deepRecord = model.clone(this.record);
     deepRecord.createAt = new Date();
     this.recordList.push(deepRecord);
     console.log(this.recordList);
@@ -90,7 +80,7 @@ export default class Money extends Vue {
 
   @Watch('recordList')
   onRecordChange() {
-    window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
+    model.save(this.recordList);
   }
 
   // 获取用户新增标签信息

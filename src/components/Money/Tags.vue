@@ -23,7 +23,7 @@ import {Component, Prop} from 'vue-property-decorator';
 @Component
 export default class Tags extends Vue {
   @Prop(Array) tagSource: { name: string, icon: string }[] | undefined;
-  selectedTags: { name: string, icon: string }[] = [{name: '购物消费', icon: 'clothes'}];
+  selectedTags: { name: string, icon: string }[] = [];
 
   // tag是数组的一个对象,即{name,icon}
   selectToggle(tag: { name: string, icon: string }) {
