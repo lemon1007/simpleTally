@@ -22,7 +22,9 @@ import {Component, Watch} from 'vue-property-decorator';
 import Vue from 'vue';
 import Public from '@/public';
 
-// 申明一个类型
+const recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
+
+// 声明一个类型
 type Record = {
   tags: {
     name: string
@@ -48,7 +50,7 @@ export default class Money extends Vue {
     {name: '出行交通', icon: 'traffic'},
   ];
 
-  recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
+  recordList: Record[] = recordList;
 
   // 对象初始化
   record: Record = {
@@ -81,6 +83,7 @@ export default class Money extends Vue {
   // 储存用户输入record信息
   saveRecord() {
     const deepRecord = JSON.parse(JSON.stringify(this.record));
+    deepRecord.createAt = new Date();
     this.recordList.push(deepRecord);
     console.log(this.recordList);
   }
