@@ -6,13 +6,9 @@
         <span>编辑标签</span>
       </div>
 
-      <label class="input">
-        <span class="name">标签名</span>
-        <input type="text"
-               @input="onValueChanged"
-               :value="tag.name"
-               placeholder="请输入修改内容">
-      </label>
+      <MyInput file-name="标签名"
+               :placeholder="tag.name"
+               class="input"></MyInput>
 
       <div class="delBtnWrapper">
         <MyBtn class="delBtn">删除标签</MyBtn>
@@ -23,12 +19,13 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop, Watch} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
 import tagListModel from '@/models/tagListModel';
 import MyBtn from '@/components/MyBtn.vue';
+import MyInput from '@/components/MyInput.vue';
 
 @Component({
-  components: {MyBtn}
+  components: {MyInput, MyBtn}
 })
 export default class EditLabel extends Vue {
   @Prop({default: ''}) readonly value!: string;
@@ -49,11 +46,6 @@ export default class EditLabel extends Vue {
 
   back() {
     this.$router.back();
-  }
-
-  @Watch('value')
-  onValueChanged(value: string) {
-    this.$emit('update:value', this.value);
   }
 }
 </script>
@@ -91,7 +83,7 @@ export default class EditLabel extends Vue {
 }
 
 .input {
-  font-size: 14px;
+  font-size: 15px;
   padding-left: 20px;
   display: flex;
   align-items: center;
