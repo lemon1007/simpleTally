@@ -10,7 +10,8 @@
       </router-link>
     </div>
     <div class="createTag-wrapper">
-      <button @click="createTag">新建标签</button>
+<!--      <MyBtn class="addBtn" @click.native="createTag">新建标签</MyBtn>-->
+      <MyBtn class="addBtn" @click="createTag">新建标签</MyBtn>
     </div>
   </Layout>
 </template>
@@ -20,10 +21,11 @@ import Layout from '@/components/Layout.vue';
 import {Component} from 'vue-property-decorator';
 import Vue from 'vue';
 import tagListModel from '@/models/tagListModel';
+import MyBtn from '@/components/MyBtn.vue';
 
 tagListModel.fetch();
 @Component({
-  components: {Layout}
+  components: {MyBtn, Layout}
 })
 export default class Labels extends Vue {
   tags = tagListModel.data;
@@ -88,15 +90,10 @@ export default class Labels extends Vue {
   min-height: 22vh;
   background-color: #f5f5f5;
 
-  > button {
+  .addBtn {
+    background-color: #f5f5f5;
     margin-left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 50px;
-    border: none;
-    margin-top: 10%;
-    background-color: $color-theme;
-    border-radius: 7px;
+    transform: translateX(-25%);
   }
 }
 </style>
