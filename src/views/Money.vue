@@ -44,17 +44,14 @@ export default class Money extends Vue {
     amount: 0
   };
 
-  // 储存用户输入record信息
+  // 储存用户输入的record信息
   saveRecord() {
-    const deepRecord = model.clone(this.record);
-    deepRecord.createAt = new Date();
-    this.recordList.push(deepRecord);
-    console.log(this.recordList);
+    recordListModel.create(this.record);
   }
 
   @Watch('recordList')
   onRecordChange() {
-    model.save(this.recordList);
+    recordListModel.save();
   }
 
   // 获取用户新增标签信息

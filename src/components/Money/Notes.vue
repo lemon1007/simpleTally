@@ -1,7 +1,8 @@
 <template>
   <div class="notes">
     <MyInput file-name="备注"
-             placeholder="添加备注"/>
+             placeholder="添加备注"
+             @update:value="getNotes"/>
     <Icon class="timer" name="calendar"/>
     <!--      <input type="datetime-local" id="initTime">-->
   </div>
@@ -15,7 +16,14 @@ import MyInput from '@/components/MyInput.vue';
 @Component({
   components: {MyInput}
 })
-export default class Notes extends Vue {}
+export default class Notes extends Vue {
+  value: string = '';
+
+  getNotes(notes: string) {
+    this.value = notes;
+    this.$emit('update:value', this.value);
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -22,7 +22,6 @@ export default class MyInput extends Vue {
 
   onValueChanged(value: string) {
     this.$emit('update:value', value);
-    console.log(value);
   }
 }
 </script>
