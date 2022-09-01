@@ -17,6 +17,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: #333;
   line-height: 1.5;
-  font-family:$font-hei;
+  font-family: $font-hei;
 }
 </style>

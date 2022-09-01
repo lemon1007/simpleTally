@@ -26,7 +26,7 @@
       <!--        <Icon name="right"></Icon>-->
       <!--      </li>-->
     </ol>
-    <div class="addBtn">
+    <div class="createTag-wrapper">
       <button @click="createTag">新建标签</button>
     </div>
   </Layout>
@@ -38,14 +38,23 @@ import {Component} from 'vue-property-decorator';
 import Vue from 'vue';
 import tagListModel from '@/models/tagListModel';
 
+tagListModel.fetch();
 @Component({
   components: {Layout}
 })
 export default class Labels extends Vue {
-  tags = tagListModel.fetch();
+  tags = tagListModel.data;
 
-  createTag(){
-
+  // 新建标签
+  createTag() {
+    const name = window.prompt('请输入标签名');
+    if (name) {
+      const message = tagListModel.create(name);
+      if (message === 'duplicated') {
+        alert('标签已存在');
+      }
+      tagListModel.create(name);
+    }
   }
 };
 </script>
@@ -84,7 +93,7 @@ export default class Labels extends Vue {
   display: none;
 }
 
-.addBtn {
+.createTag-wrapper {
   min-height: 31vh;
   background-color: #f5f5f5;
 
