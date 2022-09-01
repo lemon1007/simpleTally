@@ -13,7 +13,6 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import Public from '@/public';
 
 @Component
 export default class TagList extends Vue {
@@ -29,7 +28,7 @@ export default class TagList extends Vue {
     if (index >= 1)
       this.selectedTags = [];
     this.selectedTags.push(tags);
-    Public.$emit('send-tag-icon', this.selectedTags);
+    this.$emit('send-tag-icon', this.selectedTags);
   }
 }
 </script>

@@ -1,7 +1,15 @@
+import icon from '@/components/Icon.vue';
+
 const localStorageKeyName = 'tagList';
+// 定义单个tag的类型
+type tag = {
+  id: string;
+  name: string;
+  icon: string
+}
 type TagListModel = {
-  data: string[]
-  fetch: () => string[]
+  data: tag[]
+  fetch: () => tag[]
   create: (name: string) => string   // success表示正常返回，duplicated表示name重复
   save: () => void
 }
@@ -15,10 +23,11 @@ const tagListModel: TagListModel = {
   },
 
   create(name) {
-    if (this.data.indexOf(name) >= 0) {
+    const names = this.data.map(item => item.name);
+    if (names.indexOf(name) >= 0) {
       return 'duplicated';
     } else {
-      this.data.push(name);
+      this.data.push({id: name, name: name, icon: name});
       this.save();
       return 'success';
     }

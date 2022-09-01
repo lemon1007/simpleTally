@@ -14,7 +14,6 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import Public from '@/public';
 
 @Component
 export default class AddTagName extends Vue {
@@ -25,8 +24,8 @@ export default class AddTagName extends Vue {
     const input = (event.target as HTMLInputElement);
     this.value = input.value;
 
-    // 将用户输入信息传给NavBar页面
-    Public.$emit('send-tag-name', this.value);
+    // 将用户输入信息传给AddTag页面
+    this.$emit('send-tag-name', this.value);
   }
 }
 </script>

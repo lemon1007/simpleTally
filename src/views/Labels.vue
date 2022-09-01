@@ -1,30 +1,13 @@
 <template>
   <Layout>
+    <div class="navBar">
+      <span>标签管理</span>
+    </div>
     <ol class="tags">
-      <li v-for="tag in  tags" :key="tag">
-        <span>{{ tag }}</span>
+      <li v-for="tag in  tags" :key="tag.id">
+        <span>{{ tag.name }}</span>
         <Icon name="right"></Icon>
       </li>
-      <!--      <li>-->
-      <!--        <span>食品餐饮</span>-->
-      <!--        <Icon name="right"></Icon>-->
-      <!--      </li>-->
-      <!--      <li>-->
-      <!--        <span>居家生活</span>-->
-      <!--        <Icon name="right"></Icon>-->
-      <!--      </li>-->
-      <!--      <li>-->
-      <!--        <span>出行交通</span>-->
-      <!--        <Icon name="right"></Icon>-->
-      <!--      </li>-->
-      <!--      <li>-->
-      <!--        <span>虚拟充值</span>-->
-      <!--        <Icon name="right"></Icon>-->
-      <!--      </li>-->
-      <!--      <li>-->
-      <!--        <span>休闲娱乐</span>-->
-      <!--        <Icon name="right"></Icon>-->
-      <!--      </li>-->
     </ol>
     <div class="createTag-wrapper">
       <button @click="createTag">新建标签</button>
@@ -63,8 +46,16 @@ export default class Labels extends Vue {
 
 @import "@/assets/style/helper.scss";
 
+.navBar {
+  background-color: $color-theme;
+  text-align: center;
+  line-height: 9vh;
+  font-size: 18px;
+}
+
 .tags {
   height: 60vh;
+  overflow: scroll;
   background-color: #f5f5f5;
 
   > li {
@@ -74,8 +65,8 @@ export default class Labels extends Vue {
     align-items: center;
     min-height: 10vh;
     border-bottom: 1px solid #e6e6e6;
-    padding: 0 27px;
     background-color: white;
+    padding: 0 27px;
 
     > span {
       font-size: 15px;
@@ -94,16 +85,16 @@ export default class Labels extends Vue {
 }
 
 .createTag-wrapper {
-  min-height: 31vh;
+  min-height: 22vh;
   background-color: #f5f5f5;
 
   > button {
     margin-left: 50%;
     transform: translateX(-50%);
-    margin-top: 20%;
     width: 100px;
     height: 50px;
     border: none;
+    margin-top: 10%;
     background-color: $color-theme;
     border-radius: 7px;
   }
