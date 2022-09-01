@@ -2,13 +2,10 @@
   <div>
     <label class="notes">
       <Icon name="notes" class="icons"/>
-      <span class="name">备注</span>
-      <!--:value="value" @input="$event.target.value"可以简写为v-model="value"-->
-      <!--这样写时，在下面script中只需要再定义value初始值即value = ""即可-->
+      <span class="name">{{ fileName }}</span>
       <input type="text"
-             :value="value"
-             @input="onInput"
-             placeholder="添加备注">
+             v-model="value"
+             :placeholder="this.placeholder">
       <Icon class="timer" name="calendar"/>
       <!--      <input type="datetime-local" id="initTime">-->
     </label>
@@ -17,10 +14,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Watch} from 'vue-property-decorator';
+import {Component, Prop, Watch} from 'vue-property-decorator';
 
 @Component
 export default class Notes extends Vue {
+  @Prop({required: true}) fileName!: string;
+  @Prop() placeholder?: string;
   value = '';
 
   // notes 发生变化时触发
@@ -28,12 +27,6 @@ export default class Notes extends Vue {
   onValueChanged(value: string) {
     this.$emit('update:value', this.value);
   }
-
-  onInput(event: KeyboardEvent) {
-    const input = (event.target as HTMLInputElement);
-    this.value = input.value;
-  }
-
 };
 </script>
 

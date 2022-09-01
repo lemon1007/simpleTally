@@ -4,7 +4,7 @@
            @update:value="onUpdateType"></Types>
     <Tags :tag-source.sync="tags"
           @update:value="onUpdateTags"></Tags>
-    <Notes @update:value="onUpdateNotes"></Notes>
+    <Notes @update:value="onUpdateNotes" file-name="备注" placeholder="添加备注"></Notes>
     <NumberPad :amount="record.amount"
                @update:value="onUpdateAmount"
                @submit="saveRecord"></NumberPad>
