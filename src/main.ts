@@ -16,6 +16,7 @@ Vue.component('Layout', Layout);
 Vue.component('Icon', Icon);
 
 window.tagList = tagListModel.fetch();
+// 创建标签
 window.createTag = (name: string, icon: string) => {
   const message = tagListModel.create(name, icon);
   if (message === 'duplicated') {
@@ -23,6 +24,11 @@ window.createTag = (name: string, icon: string) => {
   } else if (message === 'success') {
     window.alert('添加成功');
   }
+};
+
+// 更新标签
+window.updateTag = (id: string, name: string, icon: string) => {
+  return tagListModel.update(id, name, icon);
 };
 
 new Vue({
