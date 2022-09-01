@@ -69,7 +69,6 @@ export default class Tags extends Vue {
         width: 43px;
         height: 43px;
         padding: 7px;
-        border-radius: 50%;
         background-color: #f5f5f5;
       }
 

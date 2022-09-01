@@ -52,7 +52,6 @@ export default class TagList extends Vue {
       width: 50px;
       height: 50px;
       padding: 10px;
-      border-radius: 50%;
       background-color: #f5f5f5;
     }
 

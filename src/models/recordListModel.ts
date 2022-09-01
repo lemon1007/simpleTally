@@ -1,16 +1,23 @@
 const localStorageKeyName = 'recordList';
 
 const recordListModel = {
+  data: [] as RecordItem[],
+
+  // 从localStorage读取数据
   fetch() {
-    return JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]') as RecordItem[];
+    this.data = JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]') as RecordItem[];
+    return this.data;
   },
 
-  save(data: RecordItem[] | RecordItem) {
-    window.localStorage.setItem(localStorageKeyName, JSON.stringify(data));
-  },
-  clone(data: RecordItem[]) {
+  // 拷贝数据
+  clone(data: RecordItem[] | RecordItem) {
     return JSON.parse(JSON.stringify(data));
-  }
+  },
+
+  // 数据存储到localStorage
+  save() {
+    window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data));
+  },
 };
 
 export default recordListModel;

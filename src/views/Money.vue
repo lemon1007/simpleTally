@@ -33,19 +33,7 @@ const tagList = tagListModel.fetch();
   components: {Layout, Tags, Notes, Types, NumberPad}
 })
 export default class Money extends Vue {
-  // tags: {
-  //   name: string
-  //   icon: string
-  // }[] = [
-  //   {name: '购物消费', icon: 'clothes'},
-  //   {name: '食品餐饮', icon: 'foods'},
-  //   {name: '居家生活', icon: 'houses'},
-  //   {name: '出行交通', icon: 'traffic'},
-  //   {name: '虚拟充值', icon: 'game'},
-  //   {name: '休闲娱乐', icon: 'dianying'},
-  // ];
   tags = tagList;
-
   recordList: RecordItem[] = recordList;
 
   // 对象初始化
@@ -55,6 +43,28 @@ export default class Money extends Vue {
     type: '-',
     amount: 0
   };
+
+  // 储存用户输入record信息
+  saveRecord() {
+    const deepRecord = model.clone(this.record);
+    deepRecord.createAt = new Date();
+    this.recordList.push(deepRecord);
+    console.log(this.recordList);
+  }
+
+  @Watch('recordList')
+  onRecordChange() {
+    model.save(this.recordList);
+  }
+
+  // 获取用户新增标签信息
+  created() {
+    Public.$on('send-new-tag', (val: string) => {
+      this.tags.push({id: val[0], name: val[0], icon: val[1]});
+      console.log(this.tags);
+    });
+  }
+
 
   // 获取用户选择的标签
   onUpdateTags(value: { name: string, icon: string }[]) {
@@ -74,29 +84,6 @@ export default class Money extends Vue {
   // 获取计算器数据
   onUpdateAmount(value: string) {
     this.record.amount = parseFloat(value);
-  }
-
-  // 储存用户输入record信息
-  saveRecord() {
-    const deepRecord = model.clone(this.record);
-    deepRecord.createAt = new Date();
-    this.recordList.push(deepRecord);
-    console.log(this.recordList);
-  }
-
-  @Watch('recordList')
-  onRecordChange() {
-    model.save(this.recordList);
-  }
-
-  // 获取用户新增标签信息
-  created() {
-    // const msgFromAddTag = this.$route.query.newMsg as string;
-    // this.tags = [...this.tags, {name: msgFromAddTag[0], icon: msgFromAddTag[1]}];
-    Public.$on('send-new-tag', (val: string) => {
-      this.tags.push({id: val[0], name: val[0], icon: val[1]});
-      console.log(this.tags);
-    });
   }
 };
 </script>
