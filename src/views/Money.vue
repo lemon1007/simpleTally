@@ -94,7 +94,7 @@ export default class Money extends Vue {
     // const msgFromAddTag = this.$route.query.newMsg as string;
     // this.tags = [...this.tags, {name: msgFromAddTag[0], icon: msgFromAddTag[1]}];
     Public.$on('send-new-tag', (val: string) => {
-      this.tags.push({name: val[0], icon: val[1]});
+      this.tags.push({id: val[0], name: val[0], icon: val[1]});
       console.log(this.tags);
     });
   }

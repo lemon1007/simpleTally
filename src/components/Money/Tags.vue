@@ -1,7 +1,7 @@
 <template>
   <div class="tags">
     <ul class="current">
-      <li v-for="tag in tagSource" :key="tag.name"
+      <li v-for="tag in tagSource" :key="tag.id"
           :class="selectedTags.indexOf(tag)>=0 && 'selected'"
           @click="selectToggle(tag)">
         <Icon :name="tag.icon" class="icons"></Icon>

@@ -1,18 +1,25 @@
 <template>
   <Layout>
     <div class="editLabel">
-      <div class="navBar">
-        <Icon name="return" class="backIcon" @click="back"></Icon>
-        <span>编辑标签</span>
-      </div>
+      <ul class="navBar">
+        <li>
+          <Icon name="return" class="icons" @click.native="back"/>
+        </li>
+        <li>
+          <span>编辑标签</span>
+        </li>
+        <li>
+          <Icon name="del" class="del icons" @click.native="remove"/>
+          <Icon name="ensure" class="ensure icons" @click.native="update"/>
+        </li>
+      </ul>
 
       <MyInput file-name="标签名"
                :placeholder="tag.name"
-               class="input"></MyInput>
+               @update:value="update"
+               class="input"/>
 
-      <div class="delBtnWrapper">
-        <MyBtn class="delBtn">删除标签</MyBtn>
-      </div>
+      <TagList class="tagList"></TagList>
     </div>
   </Layout>
 </template>
@@ -23,9 +30,10 @@ import {Component, Prop} from 'vue-property-decorator';
 import tagListModel from '@/models/tagListModel';
 import MyBtn from '@/components/MyBtn.vue';
 import MyInput from '@/components/MyInput.vue';
+import TagList from '@/components/AddTag/TagList.vue';
 
 @Component({
-  components: {MyInput, MyBtn}
+  components: {TagList, MyInput, MyBtn}
 })
 export default class EditLabel extends Vue {
   @Prop({default: ''}) readonly value!: string;
@@ -44,8 +52,25 @@ export default class EditLabel extends Vue {
     }
   }
 
+  // 返回上一页
   back() {
-    this.$router.back();
+    this.$router.replace('/labels');
+  }
+
+  // 更新标签信息
+  update(name: string) {
+    if (this.tag) {
+      tagListModel.update(this.tag.id, name);
+    }
+  }
+
+  // 删除标签
+  remove() {
+    if (this.tag) {
+      tagListModel.remove(this.tag.id);
+      alert('删除成功');
+      this.$router.go(-1);
+    }
   }
 }
 </script>
@@ -59,50 +84,65 @@ export default class EditLabel extends Vue {
 
   .navBar {
     background-color: $color-theme;
-    line-height: 9vh;
+    min-height: 9vh;
     font-size: 18px;
-    position: relative;
-    text-align: center;
-
-    .backIcon {
-      position: absolute;
-      left: 5%;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-  }
-
-  .delBtnWrapper {
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 
-    .delBtn {
-      margin-top: 40%;
+    > li {
+      padding: 0 20px;
+
+      .del {
+        margin-right: 20px;
+      }
+
+      .icons {
+        width: 21px;
+        height: 21px;
+      }
+
+      > span {
+        margin-left: 25px;
+      }
     }
   }
-}
 
-.input {
-  font-size: 15px;
-  padding-left: 20px;
-  display: flex;
-  align-items: center;
-  margin-top: 20px;
-  background-color: white;
+  .input {
+    font-size: 15px;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    height: 7vh;
+    background-color: white;
+    border-bottom: 1px #f5f5f5 solid;
 
-  .name {
-    padding-right: 14px;
-    padding-left: 3px;
+    .name {
+      padding-right: 14px;
+      padding-left: 3px;
+    }
+
+    input {
+      width: 100px;
+      min-height: 7vh;
+      border: none;
+      padding-left: 10px;
+      flex-grow: 1;
+      background-color: transparent;
+      padding-right: 10px;
+    }
   }
 
-  input {
-    width: 100px;
-    min-height: 7vh;
-    border: none;
-    padding-left: 10px;
-    flex-grow: 1;
-    background-color: transparent;
-    padding-right: 10px;
+  .tagList {
+    height: 72vh;
+    overflow: scroll;
+    background-color: white;
+  }
+
+  .tagList::-webkit-scrollbar {
+    display: none;
   }
 }
 </style>

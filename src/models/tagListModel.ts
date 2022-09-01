@@ -10,7 +10,9 @@ type tag = {
 type TagListModel = {
   data: tag[]
   fetch: () => tag[]
-  create: (name: string) => string   // success表示正常返回，duplicated表示name重复
+  create: (name: string) => 'success' | 'duplicated'   // success表示正常返回，duplicated表示name重复
+  update: (id: string, name: string) => 'success' | 'not found' | 'duplicated'
+  remove: (id: string) => boolean
   save: () => void
 }
 
@@ -22,6 +24,12 @@ const tagListModel: TagListModel = {
     return this.data;
   },
 
+  // tag内容拷贝
+  // clone(data: tag) {
+  //   return JSON.parse(JSON.stringify(data));
+  // },
+
+  // 添加标签-Label
   create(name) {
     const names = this.data.map(item => item.name);
     if (names.indexOf(name) >= 0) {
@@ -33,10 +41,39 @@ const tagListModel: TagListModel = {
     }
   },
 
-  // update() {
-  //
-  // },
+  // 更新标签
+  update(id: string, name: string) {
+    const idList = this.data.map(item => item.id);
+    if (idList.indexOf(id) >= 0) {
+      const names = this.data.map(item => item.name);
+      if (names.indexOf(name) >= 0) {
+        return 'duplicated';
+      } else {
+        const tag = this.data.filter(item => item.id === id)[0];
+        tag.name = name;
+        this.save();
+        return 'success';
+      }
+    } else {
+      return 'not found';
+    }
+  },
 
+  // 删除标签
+  remove(id: string) {
+    let index = -1;
+    for (let i = 0; i < this.data.length; i++) {
+      if (this.data[i].id === id) {
+        index = i;
+        break;
+      }
+    }
+    this.data.splice(index, 1);
+    this.save();
+    return true;
+  },
+
+  // 存储数据到localStorage
   save() {
     window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data));
   },

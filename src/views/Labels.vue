@@ -81,7 +81,6 @@ export default class Labels extends Vue {
   }
 }
 
-//隐藏滚动条
 .tags::-webkit-scrollbar {
   display: none;
 }

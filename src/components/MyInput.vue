@@ -3,9 +3,10 @@
     <label class="input">
       <span class="name">{{ fileName }}</span>
       <input type="text"
-             @input="onValueChanged"
              v-model="value"
              :placeholder="this.placeholder">
+<!--      :value="value"-->
+<!--      @input="onInput"-->
     </label>
   </div>
 </template>
@@ -20,9 +21,17 @@ export default class MyInput extends Vue {
   @Prop() placeholder?: string;
   value = '';
 
+
+  // onInput(event: KeyboardEvent) {
+  //   const input = (event.target as HTMLInputElement);
+  //   this.value = input.value;
+  //   this.$emit('update:value', this.value);
+  //   console.log(this.value);
+  // }
+
   @Watch('value')
   onValueChanged(value: string) {
-    this.$emit('update:value', this.value);
+    this.$emit('update:value', value);
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="notes">
     <MyInput file-name="备注"
-             placeholder="添加备注"></MyInput>
+             placeholder="添加备注"/>
     <Icon class="timer" name="calendar"/>
     <!--      <input type="datetime-local" id="initTime">-->
   </div>
@@ -15,8 +15,7 @@ import MyInput from '@/components/MyInput.vue';
 @Component({
   components: {MyInput}
 })
-export default class Notes extends Vue {
-}
+export default class Notes extends Vue {}
 </script>
 
 <style lang="scss" scoped>

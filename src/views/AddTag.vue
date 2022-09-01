@@ -1,8 +1,8 @@
 <template>
   <div>
     <ul class="nav">
-      <li @click="back">
-        <Icon class="icons" name="return"/>
+      <li>
+        <Icon class="icons" name="return" @click.native="back"/>
       </li>
       <li class="addTitle">新增分类</li>
       <li @click="onSubmit">
@@ -20,11 +20,14 @@ import {Component} from 'vue-property-decorator';
 import AddTagName from '@/components/AddTag/AddTagName.vue';
 import TagList from '@/components/AddTag/TagList.vue';
 import Public from '@/public';
+import tagListModel from '@/models/tagListModel';
 
 @Component({
   components: {AddTagName, TagList}
 })
 export default class addTags extends Vue {
+
+  tags = tagListModel.data;
 
   //定义变量
   name: string = '';
@@ -46,7 +49,8 @@ export default class addTags extends Vue {
     Public.$emit('send-new-tag', [this.name, this.icon[0]]);
   }
 
-  back(){
+
+  back() {
     this.$router.replace('/');
   }
 }
