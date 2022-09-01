@@ -31,6 +31,11 @@ window.updateTag = (id: string, name: string, icon: string) => {
   return tagListModel.update(id, name, icon);
 };
 
+// 删除标签
+window.removeTag = (id: string) => {
+  return tagListModel.remove(id);
+};
+
 new Vue({
   router,
   store,

@@ -43,8 +43,7 @@ export default class EditLabel extends Vue {
 
   created() {
     const id = this.$route.params.id;
-    tagListModel.fetch();
-    const tags = tagListModel.data;
+    const tags = window.tagList;
     const tag = tags.filter(item => item.id === id)[0];
     if (tag) {
       this.tag = tag;
@@ -69,7 +68,7 @@ export default class EditLabel extends Vue {
   // 删除标签
   remove() {
     if (this.tag) {
-      if (tagListModel.remove(this.tag.id)) {
+      if (window.removeTag(this.tag.id)) {
         window.alert('删除成功');
         this.$router.go(-1);
       } else {
