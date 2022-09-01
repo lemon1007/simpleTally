@@ -51,7 +51,7 @@ export default class addTags extends Vue {
 
 
   back() {
-    this.$router.replace('/');
+    this.$router.go(-1);
   }
 }
 </script>

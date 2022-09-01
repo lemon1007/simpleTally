@@ -23,17 +23,17 @@ import Vue from 'vue';
 import Public from '@/public';
 import recordListModel from '@/models/recordListModel';
 import tagListModel from '@/models/tagListModel';
+import createId from '@/lib/createId';
 
 const model = require('@/models/recordListModel').default;
 
 const recordList = recordListModel.fetch();
-const tagList = tagListModel.fetch();
 
 @Component({
   components: {Layout, Tags, Notes, Types, NumberPad}
 })
 export default class Money extends Vue {
-  tags = tagList;
+  tags = window.tagList;
   recordList: RecordItem[] = recordList;
 
   // 对象初始化
@@ -57,14 +57,15 @@ export default class Money extends Vue {
   // 获取用户新增标签信息
   created() {
     Public.$on('send-new-tag', (val: string) => {
-      this.tags.push({id: val[0], name: val[0], icon: val[1]});
-      console.log(this.tags);
+      const id = createId().toString();
+      this.tags.push({id, name: val[0], icon: val[1]});
+      tagListModel.save();
     });
   }
 
 
   // 获取用户选择的标签
-  onUpdateTags(value: { name: string, icon: string }[]) {
+  onUpdateTags(value: { id: string, name: string, icon: string }[]) {
     this.record.tags = value;
   }
 
