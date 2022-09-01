@@ -3,12 +3,12 @@
     <div class="navBar">
       <span>标签管理</span>
     </div>
-    <ol class="tags">
-      <li v-for="tag in  tags" :key="tag.id">
+    <div class="tags">
+      <router-link :to="`/labels/edit/${tag.id}`" v-for="tag in  tags" :key="tag.id" class="tagLi">
         <span>{{ tag.name }}</span>
         <Icon name="right"></Icon>
-      </li>
-    </ol>
+      </router-link>
+    </div>
     <div class="createTag-wrapper">
       <button @click="createTag">新建标签</button>
     </div>
@@ -58,7 +58,7 @@ export default class Labels extends Vue {
   overflow: scroll;
   background-color: #f5f5f5;
 
-  > li {
+  .tagLi {
     display: flex;
     flex-direction: row;
     justify-content: space-between;

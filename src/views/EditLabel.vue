@@ -2,6 +2,7 @@
   <Layout>
     <div class="editLabel">
       <div class="navBar">
+        <Icon name="return" class="backIcon" @click="back"></Icon>
         <span>编辑标签</span>
       </div>
     </div>
@@ -26,6 +27,11 @@ export default class EditLabel extends Vue {
       this.$router.replace('/NotFound');
     }
   }
+
+  back() {
+    this.$router.back();
+  }
+
 }
 </script>
 
@@ -38,9 +44,16 @@ export default class EditLabel extends Vue {
 
   .navBar {
     background-color: $color-theme;
-    text-align: center;
     line-height: 9vh;
     font-size: 18px;
+
+    .backIcon {
+      margin-left: 5%;
+    }
+
+    > span {
+      margin-left: 30%;
+    }
   }
 }
 </style>
