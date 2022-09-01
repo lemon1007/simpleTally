@@ -9,7 +9,8 @@
       <label class="input">
         <span class="name">标签名</span>
         <input type="text"
-               v-model="value"
+               @input="onValueChanged"
+               :value="tag.name"
                placeholder="请输入修改内容">
       </label>
 
@@ -30,13 +31,17 @@ import MyBtn from '@/components/MyBtn.vue';
   components: {MyBtn}
 })
 export default class EditLabel extends Vue {
+  @Prop({default: ''}) readonly value!: string;
+
+  tag?: { id: string, name: string, icon: string } = undefined;
+
   created() {
     const id = this.$route.params.id;
     tagListModel.fetch();
     const tags = tagListModel.data;
     const tag = tags.filter(item => item.id === id)[0];
     if (tag) {
-
+      this.tag = tag;
     } else {
       this.$router.replace('/NotFound');
     }
@@ -45,8 +50,6 @@ export default class EditLabel extends Vue {
   back() {
     this.$router.back();
   }
-
-  value = '';
 
   @Watch('value')
   onValueChanged(value: string) {
