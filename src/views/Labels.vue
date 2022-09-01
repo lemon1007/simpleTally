@@ -56,7 +56,7 @@ export default class Labels extends Vue {
 }
 
 .tags {
-  height: 60vh;
+  height: 50vh;
   overflow: scroll;
   background-color: #f5f5f5;
 
@@ -65,7 +65,7 @@ export default class Labels extends Vue {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    min-height: 10vh;
+    min-height: 8vh;
     border-bottom: 1px solid #e6e6e6;
     background-color: white;
     padding: 0 27px;
@@ -87,13 +87,14 @@ export default class Labels extends Vue {
 }
 
 .createTag-wrapper {
-  min-height: 22vh;
+  min-height: 32vh;
   background-color: #f5f5f5;
 
   .addBtn {
     background-color: #f5f5f5;
     margin-left: 50%;
     transform: translateX(-25%);
+    padding-top: 10%;
   }
 }
 </style>

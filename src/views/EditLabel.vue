@@ -6,12 +6,16 @@
         <span>编辑标签</span>
       </div>
 
-      <label class="notes">
-        <span class="name">标签名称</span>
+      <label class="input">
+        <span class="name">标签名</span>
         <input type="text"
                v-model="value"
                placeholder="请输入修改内容">
       </label>
+
+      <div class="delBtnWrapper">
+        <MyBtn class="delBtn">删除标签</MyBtn>
+      </div>
     </div>
   </Layout>
 </template>
@@ -20,8 +24,11 @@
 import Vue from 'vue';
 import {Component, Prop, Watch} from 'vue-property-decorator';
 import tagListModel from '@/models/tagListModel';
+import MyBtn from '@/components/MyBtn.vue';
 
-@Component
+@Component({
+  components: {MyBtn}
+})
 export default class EditLabel extends Vue {
   created() {
     const id = this.$route.params.id;
@@ -59,23 +66,34 @@ export default class EditLabel extends Vue {
     background-color: $color-theme;
     line-height: 9vh;
     font-size: 18px;
+    position: relative;
+    text-align: center;
 
     .backIcon {
-      margin-left: 5%;
+      position: absolute;
+      left: 5%;
+      top: 50%;
+      transform: translateY(-50%);
     }
+  }
 
-    > span {
-      margin-left: 30%;
+  .delBtnWrapper {
+    display: flex;
+    justify-content: center;
+
+    .delBtn {
+      margin-top: 40%;
     }
   }
 }
 
-.notes {
-  background-color: #f5f5f5;
-  font-size: 13px;
+.input {
+  font-size: 14px;
   padding-left: 20px;
   display: flex;
   align-items: center;
+  margin-top: 20px;
+  background-color: white;
 
   .name {
     padding-right: 14px;

@@ -17,7 +17,7 @@ export default class MyBtn extends Vue {}
 <style lang="scss" scoped>
 @import "@/assets/style/helper.scss";
 
-.button {
+button {
   width: 100px;
   height: 50px;
   border: none;
