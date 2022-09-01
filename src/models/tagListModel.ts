@@ -1,4 +1,4 @@
-import icon from '@/components/Icon.vue';
+import createId from '@/lib/createId';
 
 const localStorageKeyName = 'tagList';
 // 定义单个tag的类型
@@ -32,13 +32,11 @@ const tagListModel: TagListModel = {
   // 添加标签-Label
   create(name) {
     const names = this.data.map(item => item.name);
-    if (names.indexOf(name) >= 0) {
-      return 'duplicated';
-    } else {
-      this.data.push({id: name, name: name, icon: name});
-      this.save();
-      return 'success';
-    }
+    if (names.indexOf(name) >= 0) {return 'duplicated';}
+    const id = createId().toString();
+    this.data.push({id, name: name, icon: name});
+    this.save();
+    return 'success';
   },
 
   // 更新标签
@@ -51,6 +49,7 @@ const tagListModel: TagListModel = {
       } else {
         const tag = this.data.filter(item => item.id === id)[0];
         tag.name = name;
+        tag.id = id;
         this.save();
         return 'success';
       }
