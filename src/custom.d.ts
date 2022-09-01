@@ -20,12 +20,13 @@ type tag = {
 type TagListModel = {
   data: tag[]
   fetch: () => tag[]
-  create: (name: string) => 'success' | 'duplicated'   // success表示正常返回，duplicated表示name重复
-  update: (id: string, name: string) => 'success' | 'not found' | 'duplicated'
+  create: (name: string, icon: string) => 'success' | 'duplicated'   // success表示正常返回，duplicated表示name重复
+  update: (id: string, name: string, icon: string) => 'success' | 'not found' | 'duplicated'
   remove: (id: string) => boolean
   save: () => void
 }
 
 interface Window {
   tagList: tag[];
+  createTag: (name: string, icon: string) => void;
 }

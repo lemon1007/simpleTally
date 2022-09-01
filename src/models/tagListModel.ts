@@ -11,23 +11,18 @@ const tagListModel: TagListModel = {
     return this.data;
   },
 
-  // tag内容拷贝
-  // clone(data: tag) {
-  //   return JSON.parse(JSON.stringify(data));
-  // },
-
-  // 添加标签-Label
-  create(name) {
+  // 新增标签
+  create(name, icon) {
     const names = this.data.map(item => item.name);
     if (names.indexOf(name) >= 0) {return 'duplicated';}
     const id = createId().toString();
-    this.data.push({id, name: name, icon: name});
+    this.data.push({id, name: name, icon: icon});
     this.save();
     return 'success';
   },
 
   // 更新标签
-  update(id: string, name: string) {
+  update(id: string, name: string, icon: string) {
     const idList = this.data.map(item => item.id);
     if (idList.indexOf(id) >= 0) {
       const names = this.data.map(item => item.name);
@@ -37,6 +32,7 @@ const tagListModel: TagListModel = {
         const tag = this.data.filter(item => item.id === id)[0];
         tag.name = name;
         tag.id = id;
+        tag.icon = icon;
         this.save();
         return 'success';
       }

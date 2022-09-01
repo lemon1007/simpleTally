@@ -10,7 +10,7 @@
         </li>
         <li>
           <Icon name="del" class="del icons" @click.native="remove"/>
-          <Icon name="ensure" class="ensure icons" @click.native="update"/>
+          <Icon name="ensure" class="ensure icons" @click.native="updatePrompt"/>
         </li>
       </ul>
 
@@ -18,7 +18,6 @@
                :placeholder="tag.name"
                @update:value="update"
                class="input"/>
-
       <TagList class="tagList"></TagList>
     </div>
   </Layout>
@@ -31,13 +30,15 @@ import tagListModel from '@/models/tagListModel';
 import MyBtn from '@/components/MyBtn.vue';
 import MyInput from '@/components/MyInput.vue';
 import TagList from '@/components/AddTag/TagList.vue';
+import Icon from '@/components/Icon.vue';
+import Public from '@/public';
 
 @Component({
-  components: {TagList, MyInput, MyBtn}
+  components: {TagList, MyInput, MyBtn, Icon}
 })
 export default class EditLabel extends Vue {
   @Prop({default: ''}) readonly value!: string;
-
+  @Prop() icon!: string;
   tag?: { id: string, name: string, icon: string } = undefined;
 
   created() {
@@ -52,16 +53,17 @@ export default class EditLabel extends Vue {
     }
   }
 
-  // 返回上一页
-  back() {
-    this.$router.replace('/labels');
-  }
-
   // 更新标签信息
   update(name: string) {
     if (this.tag) {
-      tagListModel.update(this.tag.id, name);
+      tagListModel.update(this.tag.id, name, this.tag.icon);
     }
+  }
+
+  // 显示提示并跳转
+  updatePrompt() {
+    alert('修改成功');
+    this.$router.replace('/labels');
   }
 
   // 删除标签
@@ -74,6 +76,11 @@ export default class EditLabel extends Vue {
         window.alert('删除失败');
       }
     }
+  }
+
+  // 返回上一页
+  back() {
+    this.$router.replace('/labels');
   }
 }
 </script>

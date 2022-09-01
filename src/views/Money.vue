@@ -54,16 +54,6 @@ export default class Money extends Vue {
     recordListModel.save();
   }
 
-  // 获取用户新增标签信息
-  created() {
-    Public.$on('send-new-tag', (val: string) => {
-      const id = createId().toString();
-      this.tags.push({id, name: val[0], icon: val[1]});
-      tagListModel.save();
-    });
-  }
-
-
   // 获取用户选择的标签
   onUpdateTags(value: { id: string, name: string, icon: string }[]) {
     this.record.tags = value;

@@ -28,7 +28,7 @@ export default class TagList extends Vue {
     if (index >= 1)
       this.selectedTags = [];
     this.selectedTags.push(tags);
-    this.$emit('send-tag-icon', this.selectedTags);
+    this.$emit('send-tag-icon', this.selectedTags[0]);
   }
 }
 </script>

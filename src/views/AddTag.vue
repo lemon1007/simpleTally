@@ -5,7 +5,7 @@
         <Icon class="icons" name="return" @click.native="back"/>
       </li>
       <li class="addTitle">新增分类</li>
-      <li @click="onSubmit">
+      <li @click="createTag">
         <Icon class="icons" name="ensure"/>
       </li>
     </ul>
@@ -42,13 +42,15 @@ export default class addTags extends Vue {
     this.icon = icon;
   }
 
-  onSubmit() {
-    // 将值传给Money组件
-    alert('添加成功');
+  // 添加标签
+  createTag() {
+    const name = this.name;
+    const icon = this.icon;
+    if (name && icon) {
+      window.createTag(name,icon)
+    }
     this.$router.replace('/');
-    Public.$emit('send-new-tag', [this.name, this.icon[0]]);
   }
-
 
   back() {
     this.$router.go(-1);

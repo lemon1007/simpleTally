@@ -5,6 +5,7 @@
     </div>
     <div class="tags">
       <router-link :to="`/labels/edit/${tag.id}`" v-for="tag in  tags" :key="tag.id" class="tagLi">
+        <Icon :name="tag.icon" class="icon"></Icon>
         <span>{{ tag.name }}</span>
         <Icon name="right"></Icon>
       </router-link>
@@ -20,26 +21,18 @@
 import Layout from '@/components/Layout.vue';
 import {Component} from 'vue-property-decorator';
 import Vue from 'vue';
-import tagListModel from '@/models/tagListModel';
+import Icon from '@/components/Icon.vue';
 import MyBtn from '@/components/MyBtn.vue';
 
 @Component({
-  components: {MyBtn, Layout}
+  components: {MyBtn, Layout, Icon}
 })
 export default class Labels extends Vue {
   tags = window.tagList;
 
   // 新建标签
   createTag() {
-    // const name = window.prompt('请输入标签名');
-    // if (name) {
-    //   const message = tagListModel.create(name);
-    //   if (message === 'duplicated') {
-    //     alert('标签已存在');
-    //   }
-    //   tagListModel.create(name);
-    // }
-    this.$router.replace('/add-tag')
+    this.$router.replace('/add-tag');
   }
 };
 </script>
@@ -70,9 +63,15 @@ export default class Labels extends Vue {
     background-color: white;
     padding: 0 27px;
 
+    .icon{
+      width: 22px;
+      height: 22px;
+    }
+
     > span {
       font-size: 15px;
       color: #000;
+      margin-left: -63%;
     }
 
     svg {
