@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop, Watch} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class MyInput extends Vue {
@@ -21,6 +21,7 @@ export default class MyInput extends Vue {
   @Prop({default: ''}) readonly value!: string;
 
   onValueChanged(value: string) {
+    console.log(value);
     this.$emit('update:value', value);
   }
 }
@@ -38,7 +39,7 @@ export default class MyInput extends Vue {
   }
 
   input {
-    width: 100px;
+    width: 200px;
     min-height: 7vh;
     border: none;
     padding-left: 10px;

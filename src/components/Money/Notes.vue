@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop, Watch} from 'vue-property-decorator';
+import {Component} from 'vue-property-decorator';
 import MyInput from '@/components/MyInput.vue';
 
 @Component({

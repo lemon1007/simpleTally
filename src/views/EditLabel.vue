@@ -15,7 +15,8 @@
       </ul>
 
       <MyInput file-name="标签名"
-               :placeholder="tag.name"
+               placeholder="请输入标签名"
+               :value="tag.name"
                @update:value="update"
                class="input"/>
 
@@ -45,6 +46,7 @@ export default class EditLabel extends Vue {
 
   created() {
     const id = this.$route.params.id;
+    this.$store.commit('fetchTags');
     this.$store.commit('setCurrentTag', id);
     if (!this.tag) {
       this.$router.replace('/NotFound');
@@ -59,10 +61,9 @@ export default class EditLabel extends Vue {
   }
 
   // 更新标签信息
-  update(name: string) {
+  update(name: string, icon: string) {
     if (this.tag) {
-      // TODO
-      // store.updateTag(this.tag.id, name, this.tag.icon);
+      this.$store.commit('updateTag', {id: this.tag.id, name, icon: this.tag.icon});
     }
   }
 
@@ -75,14 +76,7 @@ export default class EditLabel extends Vue {
   // 删除标签
   remove() {
     if (this.tag) {
-      // TODO
-      return;
-      // if (store.removeTag(this.tag.id)) {
-      //   window.alert('删除成功');
-      //   this.$router.go(-1);
-      // } else {
-      //   window.alert('删除失败');
-      // }
+      this.$store.commit('removeTag', this.tag.id);
     }
   }
 
@@ -135,7 +129,7 @@ export default class EditLabel extends Vue {
     margin-top: 20px;
     height: 7vh;
     background-color: white;
-    border-bottom: 1px #f5f5f5 solid;
+    border-bottom: 3px #f5f5f5 solid;
 
     .name {
       padding-right: 14px;
