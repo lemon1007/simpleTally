@@ -1,7 +1,7 @@
 <template>
   <div class="tags">
     <ul class="current">
-      <li v-for="tag in tagSource" :key="tag.id"
+      <li v-for="tag in tagList" :key="tag.id"
           :class="selectedTags.indexOf(tag)>=0 && 'selected'"
           @click="selectToggle(tag)">
         <Icon :name="tag.icon" class="icons"></Icon>
@@ -19,10 +19,18 @@
 
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
+import store from '@/store';
 
-@Component
+@Component({
+  computed: {
+   tagList(){
+     // TODO
+     // return this.$store.fetchTags()
+     return []
+   }
+  }
+})
 export default class Tags extends Vue {
-  @Prop(Array) tagSource: { name: string, icon: string }[] | undefined;
   selectedTags: { name: string, icon: string }[] = [];
 
   // tag是数组的一个对象,即{name,icon}

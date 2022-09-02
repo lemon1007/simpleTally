@@ -31,10 +31,17 @@ import MyBtn from '@/components/MyBtn.vue';
 import MyInput from '@/components/MyInput.vue';
 import TagList from '@/components/AddTag/TagList.vue';
 import Icon from '@/components/Icon.vue';
-import store from '@/store/index2';
+import store from '@/store/index';
 
 @Component({
-  components: {TagList, MyInput, MyBtn, Icon}
+  components: {TagList, MyInput, MyBtn, Icon},
+  computed: {
+    tagList() {
+      // TODO
+      // return this.$store.fetchTags()
+      return [];
+    }
+  }
 })
 export default class EditLabel extends Vue {
   @Prop({default: ''}) readonly value!: string;
@@ -43,13 +50,14 @@ export default class EditLabel extends Vue {
 
   created() {
     const id = this.$route.params.id;
-    const tags = store.tagList;
-    const tag = tags.filter(item => item.id === id)[0];
-    if (tag) {
-      this.tag = tag;
-    } else {
-      this.$router.replace('/NotFound');
-    }
+    // TODO
+    // const tags = store.tagList;
+    // const tag = tags.filter(item => item.id === id)[0];
+    // if (tag) {
+    //   this.tag = tag;
+    // } else {
+    //   this.$router.replace('/NotFound');
+    // }
   }
 
   // 获取用户选择更换的icon
@@ -62,7 +70,8 @@ export default class EditLabel extends Vue {
   // 更新标签信息
   update(name: string) {
     if (this.tag) {
-      store.updateTag(this.tag.id, name, this.tag.icon);
+      // TODO
+      // store.updateTag(this.tag.id, name, this.tag.icon);
     }
   }
 
@@ -75,12 +84,14 @@ export default class EditLabel extends Vue {
   // 删除标签
   remove() {
     if (this.tag) {
-      if (store.removeTag(this.tag.id)) {
-        window.alert('删除成功');
-        this.$router.go(-1);
-      } else {
-        window.alert('删除失败');
-      }
+      // TODO
+      return;
+      // if (store.removeTag(this.tag.id)) {
+      //   window.alert('删除成功');
+      //   this.$router.go(-1);
+      // } else {
+      //   window.alert('删除失败');
+      // }
     }
   }
 

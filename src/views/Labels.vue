@@ -23,14 +23,19 @@ import {Component} from 'vue-property-decorator';
 import Vue from 'vue';
 import Icon from '@/components/Icon.vue';
 import MyBtn from '@/components/MyBtn.vue';
-import store from '@/store/index2';
+import store from '@/store/index';
 
 @Component({
-  components: {MyBtn, Layout, Icon}
+  components: {MyBtn, Layout, Icon},
+  computed: {
+    tagList() {
+      // TODO
+      // return this.$store.fetchTags()
+      return [];
+    }
+  }
 })
 export default class Labels extends Vue {
-  tags = store.tagList;
-
   // 新建标签
   createTag() {
     this.$router.replace('/add-tag');

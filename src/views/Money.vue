@@ -1,6 +1,6 @@
 <template>
   <Layout>
-<!--                    {{ recordList }}-->
+    <!--                    {{ recordList }}-->
     <Types :type="record.type"
            @update:value="onUpdateType"></Types>
     <Tags :tag-source.sync="tags"
@@ -24,17 +24,17 @@ import {Component, Watch} from 'vue-property-decorator';
 import Vue from 'vue';
 import Public from '@/public';
 import createId from '@/lib/createId';
-import store from '@/store/index2.ts';
+import store from '@/store';
 
 
 @Component({
   components: {Layout, Tags, Notes, Types, NumberPad},
   computed: {
     recordList() {
-      return store.recordList;
+      return this.$store.state.recordList;
     },
     tags() {
-      return store.tagList;
+      return this.$store.state.count;
     }
   }
 })
@@ -47,9 +47,13 @@ export default class Money extends Vue {
     amount: 0
   };
 
+  created() {
+    this.$store.commit('fetchRecords');
+  }
+
   // 储存用户输入的record信息
   saveRecord() {
-    store.createRecord(this.record);
+    this.$store.commit('createRecord', this.record);
   }
 
   // 获取用户选择的标签

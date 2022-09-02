@@ -19,15 +19,19 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import AddTagName from '@/components/AddTag/AddTagName.vue';
 import TagList from '@/components/AddTag/TagList.vue';
-import store from '@/store/index2';
+import store from '@/store/index';
 
 @Component({
-  components: {AddTagName, TagList}
+  components: {AddTagName, TagList},
+  computed: {
+    tagList() {
+      // TODO
+      // return this.$store.fetchTags()
+      return [];
+    }
+  }
 })
 export default class addTags extends Vue {
-
-  tags = store.tagList;
-
   //定义变量
   name: string = '';
   icon: string = '';
