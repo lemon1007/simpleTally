@@ -27,15 +27,4 @@ type TagListModel = {
 }
 
 interface Window {
-  // store: {
-  //   // tag interface
-  //   tagList: tag[];
-  //   createTag: (name: string, icon: string) => void;
-  //   updateTag: (id: string, name: string, icon: string) => 'success' | 'not found' | 'duplicated';
-  //   removeTag: (id: string) => boolean;
-  //
-  //   // record interface
-  //   recordList: RecordItem[];
-  //   createRecord: (record: RecordItem) => void;
-  // };
 }
