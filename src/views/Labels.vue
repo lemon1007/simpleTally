@@ -34,7 +34,7 @@ import MyBtn from '@/components/MyBtn.vue';
 })
 export default class Labels extends Vue {
 
-  create() {
+  created() {
     this.$store.commit('fetchTags');
   }
 

@@ -31,33 +31,24 @@ import MyBtn from '@/components/MyBtn.vue';
 import MyInput from '@/components/MyInput.vue';
 import TagList from '@/components/AddTag/TagList.vue';
 import Icon from '@/components/Icon.vue';
-import store from '@/store/index';
 
 @Component({
   components: {TagList, MyInput, MyBtn, Icon},
-  computed: {
-    tagList() {
-      // TODO
-      // return this.$store.fetchTags()
-      return [];
-    }
-  }
 })
 export default class EditLabel extends Vue {
   @Prop({default: ''}) readonly value!: string;
   @Prop() icon!: string;
-  tag?: { id: string, name: string, icon: string } = undefined;
+
+  get tag() {
+    return this.$store.state.currentTag;
+  }
 
   created() {
     const id = this.$route.params.id;
-    // TODO
-    // const tags = store.tagList;
-    // const tag = tags.filter(item => item.id === id)[0];
-    // if (tag) {
-    //   this.tag = tag;
-    // } else {
-    //   this.$router.replace('/NotFound');
-    // }
+    this.$store.commit('setCurrentTag', id);
+    if (!this.tag) {
+      this.$router.replace('/NotFound');
+    }
   }
 
   // 获取用户选择更换的icon

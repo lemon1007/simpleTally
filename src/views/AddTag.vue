@@ -34,7 +34,7 @@ export default class addTags extends Vue {
   name: string = '';
   icon: string = '';
 
-  create() {
+  created() {
     this.$store.commit('fetchTags');
   }
 
