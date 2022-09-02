@@ -68,7 +68,7 @@ export default class EditLabel extends Vue {
   }
 
   // 显示提示并跳转
-  updatePrompt(name: string) {
+  updatePrompt() {
     alert('修改成功');
     this.$router.replace('/labels');
   }
