@@ -19,7 +19,7 @@ Vue.component('Icon', Icon);
 // record store
 window.recordList = recordListModel.fetch();
 
-// window.createRecord = (record: RecordItem) => recordListModel.create(record);
+window.createRecord = (record: RecordItem) => recordListModel.create(record);
 
 
 // tag store

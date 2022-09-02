@@ -35,5 +35,6 @@ interface Window {
 
   // record interface
   recordList: RecordItem[];
+  createRecord: (record: RecordItem) => void;
 
 }
