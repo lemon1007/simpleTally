@@ -27,6 +27,7 @@ const store = new Vuex.Store({
       deepRecord.createAt = new Date();
       state.recordList.push(deepRecord);
       store.commit('saveRecord');
+      window.alert('添加成功');
     },
     saveRecord(state) {
       window.localStorage.setItem('recordList', JSON.stringify(state.recordList));
