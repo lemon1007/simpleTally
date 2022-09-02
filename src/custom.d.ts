@@ -27,14 +27,15 @@ type TagListModel = {
 }
 
 interface Window {
-  // tag interface
-  tagList: tag[];
-  createTag: (name: string, icon: string) => void;
-  updateTag: (id: string, name: string, icon: string) => 'success' | 'not found' | 'duplicated';
-  removeTag: (id: string) => boolean;
-
-  // record interface
-  recordList: RecordItem[];
-  createRecord: (record: RecordItem) => void;
-
+  // store: {
+  //   // tag interface
+  //   tagList: tag[];
+  //   createTag: (name: string, icon: string) => void;
+  //   updateTag: (id: string, name: string, icon: string) => 'success' | 'not found' | 'duplicated';
+  //   removeTag: (id: string) => boolean;
+  //
+  //   // record interface
+  //   recordList: RecordItem[];
+  //   createRecord: (record: RecordItem) => void;
+  // };
 }

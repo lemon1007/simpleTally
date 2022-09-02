@@ -16,28 +16,6 @@ Vue.component('Nav', Nav);
 Vue.component('Layout', Layout);
 Vue.component('Icon', Icon);
 
-// record store
-window.recordList = recordListModel.fetch();
-window.createRecord = (record: RecordItem) => recordListModel.create(record);
-
-
-// tag store
-window.tagList = tagListModel.fetch();
-window.createTag = (name: string, icon: string) => {
-  const message = tagListModel.create(name, icon);
-  if (message === 'duplicated') {
-    window.alert('标签名已存在');
-  } else if (message === 'success') {
-    window.alert('添加成功');
-  }
-};
-window.updateTag = (id: string, name: string, icon: string) => {
-  return tagListModel.update(id, name, icon);
-};
-window.removeTag = (id: string) => {
-  return tagListModel.remove(id);
-};
-
 new Vue({
   router,
   store,

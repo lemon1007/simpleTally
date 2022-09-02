@@ -19,13 +19,14 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import AddTagName from '@/components/AddTag/AddTagName.vue';
 import TagList from '@/components/AddTag/TagList.vue';
+import store from '@/store/index2';
 
 @Component({
   components: {AddTagName, TagList}
 })
 export default class addTags extends Vue {
 
-  tags = window.tagList;
+  tags = store.tagList;
 
   //定义变量
   name: string = '';
@@ -45,7 +46,7 @@ export default class addTags extends Vue {
     const name = this.name;
     const icon = this.icon;
     if (name && icon) {
-      window.createTag(name, icon);
+      store.createTag(name, icon);
     }
     this.$router.replace('/');
   }

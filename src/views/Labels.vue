@@ -23,12 +23,13 @@ import {Component} from 'vue-property-decorator';
 import Vue from 'vue';
 import Icon from '@/components/Icon.vue';
 import MyBtn from '@/components/MyBtn.vue';
+import store from '@/store/index2';
 
 @Component({
   components: {MyBtn, Layout, Icon}
 })
 export default class Labels extends Vue {
-  tags = window.tagList;
+  tags = store.tagList;
 
   // 新建标签
   createTag() {
@@ -63,7 +64,7 @@ export default class Labels extends Vue {
     background-color: white;
     padding: 0 27px;
 
-    .icon{
+    .icon {
       width: 22px;
       height: 22px;
     }

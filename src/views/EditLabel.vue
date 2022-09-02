@@ -31,6 +31,7 @@ import MyBtn from '@/components/MyBtn.vue';
 import MyInput from '@/components/MyInput.vue';
 import TagList from '@/components/AddTag/TagList.vue';
 import Icon from '@/components/Icon.vue';
+import store from '@/store/index2';
 
 @Component({
   components: {TagList, MyInput, MyBtn, Icon}
@@ -42,7 +43,7 @@ export default class EditLabel extends Vue {
 
   created() {
     const id = this.$route.params.id;
-    const tags = window.tagList;
+    const tags = store.tagList;
     const tag = tags.filter(item => item.id === id)[0];
     if (tag) {
       this.tag = tag;
@@ -61,7 +62,7 @@ export default class EditLabel extends Vue {
   // 更新标签信息
   update(name: string) {
     if (this.tag) {
-      window.updateTag(this.tag.id, name, this.tag.icon);
+      store.updateTag(this.tag.id, name, this.tag.icon);
     }
   }
 
@@ -74,7 +75,7 @@ export default class EditLabel extends Vue {
   // 删除标签
   remove() {
     if (this.tag) {
-      if (window.removeTag(this.tag.id)) {
+      if (store.removeTag(this.tag.id)) {
         window.alert('删除成功');
         this.$router.go(-1);
       } else {
