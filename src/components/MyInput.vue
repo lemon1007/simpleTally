@@ -21,7 +21,6 @@ export default class MyInput extends Vue {
   @Prop({default: ''}) readonly value!: string;
 
   onValueChanged(value: string) {
-    console.log(value);
     this.$emit('update:value', value);
   }
 }

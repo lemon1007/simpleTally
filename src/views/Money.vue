@@ -1,8 +1,9 @@
 <template>
   <Layout>
-    <!--                    {{ recordList }}-->
-    <Types :type="record.type"
-           @update:value="onUpdateType"></Types>
+<!--    {{ recordList }}-->
+    <Tabs :data-source="arrayMoney"
+          @update:value="onUpdateType"
+          :types="record.type"/>
     <Tags :tag-source.sync="tagList"
           @update:value="onUpdateTags"></Tags>
     <Notes @update:value="onUpdateNotes"></Notes>
@@ -18,9 +19,9 @@
 import Layout from '@/components/Layout.vue';
 import Tags from '@/components/Money/Tags.vue';
 import Notes from '@/components/Money/Notes.vue';
-import Types from '@/components/Money/Types.vue';
 import NumberPad from '@/components/Money/NumberPad.vue';
 import {Component} from 'vue-property-decorator';
+import Tabs from '@/components/Tabs.vue';
 import Vue from 'vue';
 import Public from '@/public';
 import createId from '@/lib/createId';
@@ -28,7 +29,7 @@ import store from '@/store';
 
 
 @Component({
-  components: {Layout, Tags, Notes, Types, NumberPad},
+  components: {Layout, Tags, Notes, NumberPad,Tabs},
 })
 export default class Money extends Vue {
   // 对象初始化
@@ -38,6 +39,11 @@ export default class Money extends Vue {
     type: '-',
     amount: 0
   };
+
+  arrayMoney = [
+    {text: '支出', value: '-'},
+    {text: '收入', value: '+'},
+  ];
 
   get recordList() {
     return this.$store.state.recordList;

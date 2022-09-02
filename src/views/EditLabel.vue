@@ -61,7 +61,9 @@ export default class EditLabel extends Vue {
   }
 
   // 更新标签信息
-  update(name: string, icon: string) {
+  // 监听事件存在问题，只有input产生变化时才会触发update，只修改icon无法触发update
+  update(name: string) {
+    // console.log(this.tag);
     if (this.tag) {
       this.$store.commit('updateTag', {id: this.tag.id, name, icon: this.tag.icon});
     }
@@ -69,6 +71,7 @@ export default class EditLabel extends Vue {
 
   // 显示提示并跳转
   updatePrompt() {
+
     alert('修改成功');
     this.$router.replace('/labels');
   }
