@@ -23,16 +23,15 @@ import store from '@/store/index';
 
 @Component({
   components: {AddTagName, TagList},
-  computed: {
-    tagList() {
-      return this.$store.state.tagList;
-    }
-  }
 })
 export default class addTags extends Vue {
   //定义变量
   name: string = '';
   icon: string = '';
+
+  get tagList() {
+    return this.$store.state.tagList;
+  }
 
   created() {
     this.$store.commit('fetchTags');

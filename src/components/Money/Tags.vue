@@ -21,15 +21,13 @@ import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
 import store from '@/store';
 
-@Component({
-  computed: {
-    tagList() {
-      return this.$store.state.tagList;
-    }
-  }
-})
+@Component
 export default class Tags extends Vue {
   selectedTags: { name: string, icon: string }[] = [];
+
+  get tagList() {
+    return this.$store.state.tagList;
+  }
 
   create() {
     this.$store.commit('fetchTags');

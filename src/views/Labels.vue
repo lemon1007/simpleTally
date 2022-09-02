@@ -26,13 +26,12 @@ import MyBtn from '@/components/MyBtn.vue';
 
 @Component({
   components: {MyBtn, Layout, Icon},
-  computed: {
-    tagList() {
-      return this.$store.state.tagList;
-    }
-  }
 })
 export default class Labels extends Vue {
+
+  get tagList() {
+    return this.$store.state.tagList;
+  }
 
   created() {
     this.$store.commit('fetchTags');

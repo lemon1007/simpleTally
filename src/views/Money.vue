@@ -29,14 +29,6 @@ import store from '@/store';
 
 @Component({
   components: {Layout, Tags, Notes, Types, NumberPad},
-  computed: {
-    recordList() {
-      return this.$store.state.recordList;
-    },
-    tagList() {
-      return this.$store.state.tagList;
-    }
-  }
 })
 export default class Money extends Vue {
   // 对象初始化
@@ -46,6 +38,14 @@ export default class Money extends Vue {
     type: '-',
     amount: 0
   };
+
+  get recordList() {
+    return this.$store.state.recordList;
+  }
+
+  get tagList() {
+    return this.$store.state.tagList;
+  }
 
   created() {
     this.$store.commit('fetchRecords');
