@@ -2,12 +2,13 @@
   <Layout>
     <div class="StatisticsContent">
 
-      <Tabs class-prefix="navBar"
+      <Tabs class-prefix="type"
             :data-source="typeList"
             @update:value="onUpdateType"
             :types="this.type"/>
 
-      <Tabs :data-source="intervalList"
+      <Tabs class-prefix="interval"
+            :data-source="intervalList"
             @update:value="onUpdateInterval"
             :types="this.interval"/>
     </div>
@@ -49,7 +50,7 @@ export default class Statistics extends Vue {
   min-height: 91vh;
   background-color: #f5f5f5;
 
-  ::v-deep .navBar-tabs-item {
+  ::v-deep .type-tabs-item {
     background-color: white;
     border: none;
 
@@ -60,6 +61,10 @@ export default class Statistics extends Vue {
         display: none;
       }
     }
+  }
+
+  ::v-deep .interval-tabs-item {
+    height: 7vh;
   }
 }
 </style>
