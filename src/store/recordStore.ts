@@ -14,7 +14,7 @@ const recordStore = {
   createRecord(record: RecordItem) {
     const deepRecord: RecordItem = clone(record);
     deepRecord.createAt = new Date();
-    this.recordList && this.recordList.push(deepRecord);
+    this.recordList?.push(deepRecord);
     recordStore.saveRecord();
   },
 };

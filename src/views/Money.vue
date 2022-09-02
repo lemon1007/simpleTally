@@ -1,6 +1,6 @@
 <template>
   <Layout>
-<!--                {{ recordList }}-->
+<!--                    {{ recordList }}-->
     <Types :type="record.type"
            @update:value="onUpdateType"></Types>
     <Tags :tag-source.sync="tags"
@@ -9,6 +9,7 @@
     <NumberPad :amount="record.amount"
                @update:value="onUpdateAmount"
                @submit="saveRecord"></NumberPad>
+
   </Layout>
 </template>
 
@@ -27,12 +28,17 @@ import store from '@/store/index2.ts';
 
 
 @Component({
-  components: {Layout, Tags, Notes, Types, NumberPad}
+  components: {Layout, Tags, Notes, Types, NumberPad},
+  computed: {
+    recordList() {
+      return store.recordList;
+    },
+    tags() {
+      return store.tagList;
+    }
+  }
 })
 export default class Money extends Vue {
-  tags = store.tagList;
-  recordList = store.recordList;
-
   // 对象初始化
   record: RecordItem = {
     tags: [],
