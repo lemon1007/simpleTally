@@ -18,7 +18,8 @@
                :placeholder="tag.name"
                @update:value="update"
                class="input"/>
-      <TagList class="tagList"></TagList>
+
+      <TagList class="tagList" @send-tag-icon="updateIcon"></TagList>
     </div>
   </Layout>
 </template>
@@ -26,12 +27,10 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
-import tagListModel from '@/models/tagListModel';
 import MyBtn from '@/components/MyBtn.vue';
 import MyInput from '@/components/MyInput.vue';
 import TagList from '@/components/AddTag/TagList.vue';
 import Icon from '@/components/Icon.vue';
-import Public from '@/public';
 
 @Component({
   components: {TagList, MyInput, MyBtn, Icon}
@@ -52,6 +51,13 @@ export default class EditLabel extends Vue {
     }
   }
 
+  // 获取用户选择更换的icon
+  updateIcon(icon: string) {
+    if (this.tag) {
+      this.tag.icon = icon;
+    }
+  }
+
   // 更新标签信息
   update(name: string) {
     if (this.tag) {
@@ -60,7 +66,7 @@ export default class EditLabel extends Vue {
   }
 
   // 显示提示并跳转
-  updatePrompt() {
+  updatePrompt(name: string) {
     alert('修改成功');
     this.$router.replace('/labels');
   }

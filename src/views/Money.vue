@@ -1,5 +1,6 @@
 <template>
   <Layout>
+<!--    {{ recordList }}-->
     <Types :type="record.type"
            @update:value="onUpdateType"></Types>
     <Tags :tag-source.sync="tags"
@@ -27,14 +28,12 @@ import createId from '@/lib/createId';
 
 const model = require('@/models/recordListModel').default;
 
-const recordList = recordListModel.fetch();
-
 @Component({
   components: {Layout, Tags, Notes, Types, NumberPad}
 })
 export default class Money extends Vue {
   tags = window.tagList;
-  recordList: RecordItem[] = recordList;
+  recordList = window.recordList;
 
   // 对象初始化
   record: RecordItem = {
