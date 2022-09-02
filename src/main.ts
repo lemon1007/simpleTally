@@ -18,13 +18,11 @@ Vue.component('Icon', Icon);
 
 // record store
 window.recordList = recordListModel.fetch();
-
 window.createRecord = (record: RecordItem) => recordListModel.create(record);
 
 
 // tag store
 window.tagList = tagListModel.fetch();
-// 创建标签
 window.createTag = (name: string, icon: string) => {
   const message = tagListModel.create(name, icon);
   if (message === 'duplicated') {
@@ -33,13 +31,9 @@ window.createTag = (name: string, icon: string) => {
     window.alert('添加成功');
   }
 };
-
-// 更新标签
 window.updateTag = (id: string, name: string, icon: string) => {
   return tagListModel.update(id, name, icon);
 };
-
-// 删除标签
 window.removeTag = (id: string) => {
   return tagListModel.remove(id);
 };

@@ -1,6 +1,6 @@
 <template>
   <Layout>
-<!--            {{ recordList }}-->
+    <!--            {{ recordList }}-->
     <Types :type="record.type"
            @update:value="onUpdateType"></Types>
     <Tags :tag-source.sync="tags"
@@ -22,7 +22,6 @@ import NumberPad from '@/components/Money/NumberPad.vue';
 import {Component, Watch} from 'vue-property-decorator';
 import Vue from 'vue';
 import Public from '@/public';
-import tagListModel from '@/models/tagListModel';
 import createId from '@/lib/createId';
 
 @Component({

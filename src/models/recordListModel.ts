@@ -16,6 +16,7 @@ const recordListModel = {
     const deepRecord: RecordItem = clone(record);
     deepRecord.createAt = new Date();
     this.data.push(deepRecord);
+    this.save();
   },
 
   // 数据存储到localStorage
