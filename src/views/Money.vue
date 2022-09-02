@@ -1,6 +1,6 @@
 <template>
   <Layout>
-                {{ recordList }}
+<!--                {{ recordList }}-->
     <Types :type="record.type"
            @update:value="onUpdateType"></Types>
     <Tags :tag-source.sync="tags"

@@ -1,22 +1,20 @@
-import recordListModel from '@/models/recordListModel';
 import clone from '@/lib/clone';
 
 const localStorageKeyName = 'recordList';
-let data: RecordItem[] | undefined = undefined;
 
 const recordStore = {
-  recordList: data,
+  recordList: [] as RecordItem[],
   fetchRecords() {
-    data = JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]') as RecordItem[];
-    return data;
+    this.recordList = JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]') as RecordItem[];
+    return this.recordList;
   },
   saveRecord() {
-    window.localStorage.setItem(localStorageKeyName, JSON.stringify(data));
+    window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.recordList));
   },
-  createRecord: (record: RecordItem) => {
+  createRecord(record: RecordItem) {
     const deepRecord: RecordItem = clone(record);
     deepRecord.createAt = new Date();
-    data && data.push(deepRecord);
+    this.recordList && this.recordList.push(deepRecord);
     recordStore.saveRecord();
   },
 };
