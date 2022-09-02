@@ -3,7 +3,7 @@
     <!--                    {{ recordList }}-->
     <Types :type="record.type"
            @update:value="onUpdateType"></Types>
-    <Tags :tag-source.sync="tags"
+    <Tags :tag-source.sync="tagList"
           @update:value="onUpdateTags"></Tags>
     <Notes @update:value="onUpdateNotes"></Notes>
     <NumberPad :amount="record.amount"
@@ -33,15 +33,15 @@ import store from '@/store';
     recordList() {
       return this.$store.state.recordList;
     },
-    tags() {
-      return this.$store.state.count;
+    tagList() {
+      return this.$store.state.tagList;
     }
   }
 })
 export default class Money extends Vue {
   // 对象初始化
   record: RecordItem = {
-    tags: [],
+    tag: [],
     notes: '',
     type: '-',
     amount: 0
@@ -49,6 +49,7 @@ export default class Money extends Vue {
 
   created() {
     this.$store.commit('fetchRecords');
+    this.$store.commit('fetchTags');
   }
 
   // 储存用户输入的record信息
@@ -58,7 +59,7 @@ export default class Money extends Vue {
 
   // 获取用户选择的标签
   onUpdateTags(value: { id: string, name: string, icon: string }[]) {
-    this.record.tags = value;
+    this.record.tag = value;
   }
 
   // 获取用户输入备注信息

@@ -4,7 +4,7 @@
       <span>标签管理</span>
     </div>
     <div class="tags">
-      <router-link :to="`/labels/edit/${tag.id}`" v-for="tag in  tags" :key="tag.id" class="tagLi">
+      <router-link :to="`/labels/edit/${tag.id}`" v-for="tag in tagList" :key="tag.id" class="tagLi">
         <Icon :name="tag.icon" class="icon"></Icon>
         <span>{{ tag.name }}</span>
         <Icon name="right"></Icon>
@@ -23,19 +23,21 @@ import {Component} from 'vue-property-decorator';
 import Vue from 'vue';
 import Icon from '@/components/Icon.vue';
 import MyBtn from '@/components/MyBtn.vue';
-import store from '@/store/index';
 
 @Component({
   components: {MyBtn, Layout, Icon},
   computed: {
     tagList() {
-      // TODO
-      // return this.$store.fetchTags()
-      return [];
+      return this.$store.state.tagList;
     }
   }
 })
 export default class Labels extends Vue {
+
+  create() {
+    this.$store.commit('fetchTags');
+  }
+
   // 新建标签
   createTag() {
     this.$router.replace('/add-tag');

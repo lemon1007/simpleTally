@@ -1,6 +1,6 @@
 // 声明一个类型
 type RecordItem = {
-  tags: {
+  tag: {
     id: string
     name: string
     icon: string

@@ -25,9 +25,7 @@ import store from '@/store/index';
   components: {AddTagName, TagList},
   computed: {
     tagList() {
-      // TODO
-      // return this.$store.fetchTags()
-      return [];
+      return this.$store.state.tagList;
     }
   }
 })
@@ -35,6 +33,10 @@ export default class addTags extends Vue {
   //定义变量
   name: string = '';
   icon: string = '';
+
+  create() {
+    this.$store.commit('fetchTags');
+  }
 
   // 接收新增分类名称
   getTagName(name: string) {
@@ -50,7 +52,7 @@ export default class addTags extends Vue {
     const name = this.name;
     const icon = this.icon;
     if (name && icon) {
-      store.createTag(name, icon);
+      this.$store.commit('createTag', {name, icon});
     }
     this.$router.replace('/');
   }

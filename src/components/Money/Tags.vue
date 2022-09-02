@@ -23,15 +23,17 @@ import store from '@/store';
 
 @Component({
   computed: {
-   tagList(){
-     // TODO
-     // return this.$store.fetchTags()
-     return []
-   }
+    tagList() {
+      return this.$store.state.tagList;
+    }
   }
 })
 export default class Tags extends Vue {
   selectedTags: { name: string, icon: string }[] = [];
+
+  create() {
+    this.$store.commit('fetchTags');
+  }
 
   // tag是数组的一个对象,即{name,icon}
   selectToggle(tag: { name: string, icon: string }) {
