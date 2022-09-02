@@ -1,7 +1,7 @@
 <template>
   <Layout>
-<!--    {{ recordList }}-->
-    <Tabs :data-source="arrayMoney"
+    <!--    {{ recordList }}-->
+    <Tabs :data-source="typeList"
           @update:value="onUpdateType"
           :types="record.type"/>
     <Tags :tag-source.sync="tagList"
@@ -26,10 +26,11 @@ import Vue from 'vue';
 import Public from '@/public';
 import createId from '@/lib/createId';
 import store from '@/store';
+import typeList from '@/constants/typeList';
 
 
 @Component({
-  components: {Layout, Tags, Notes, NumberPad,Tabs},
+  components: {Layout, Tags, Notes, NumberPad, Tabs},
 })
 export default class Money extends Vue {
   // 对象初始化
@@ -40,10 +41,7 @@ export default class Money extends Vue {
     amount: 0
   };
 
-  arrayMoney = [
-    {text: '支出', value: '-'},
-    {text: '收入', value: '+'},
-  ];
+  typeList = typeList;
 
   get recordList() {
     return this.$store.state.recordList;

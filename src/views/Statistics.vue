@@ -3,13 +3,13 @@
     <div class="StatisticsContent">
 
       <Tabs class-prefix="navBar"
-            :data-source="arrayMoney"
-            @update:value="onUpdateType2"
-            :types="this.typesMoney"/>
-
-      <Tabs :data-source="arrayTimer"
+            :data-source="typeList"
             @update:value="onUpdateType"
-            :types="this.typesTimer"/>
+            :types="this.type"/>
+
+      <Tabs :data-source="intervalList"
+            @update:value="onUpdateInterval"
+            :types="this.interval"/>
     </div>
   </Layout>
 </template>
@@ -20,32 +20,26 @@ import Types from '@/components/Money/Types.vue';
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Tabs from '@/components/Tabs.vue';
+import intervalList from '@/constants/intervalList';
+import typeList from '@/constants/typeList';
 
 @Component({
   components: {Tabs, Layout, Types},
 })
 export default class Statistics extends Vue {
-  typesTimer: string = 'day';
-  typesMoney: string = '-';
+  interval: string = 'day';
+  type: string = '-';
+
+  intervalList = intervalList;
+  typeList = typeList;
+
+  onUpdateInterval(value: string) {
+    this.interval = value;
+  }
 
   onUpdateType(value: string) {
-    this.typesTimer = value;
+    this.type = value;
   }
-
-  onUpdateType2(value: string) {
-    this.typesMoney = value;
-  }
-
-  arrayTimer = [
-    {text: '按天', value: 'day'},
-    {text: '按周', value: 'week'},
-    {text: '按月', value: 'month'}
-  ];
-
-  arrayMoney = [
-    {text: '支出', value: '-'},
-    {text: '收入', value: '+'},
-  ];
 };
 </script>
 
