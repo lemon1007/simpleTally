@@ -19,7 +19,6 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import AddTagName from '@/components/AddTag/AddTagName.vue';
 import TagList from '@/components/AddTag/TagList.vue';
-import store from '@/store/index';
 
 @Component({
   components: {AddTagName, TagList},
@@ -53,11 +52,10 @@ export default class addTags extends Vue {
     if (name && icon) {
       this.$store.commit('createTag', {name, icon});
     }
-    this.$router.replace('/');
   }
 
   back() {
-    this.$router.go(-1);
+    this.$router.replace('/');
   }
 }
 </script>
