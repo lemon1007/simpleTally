@@ -1,10 +1,6 @@
 // 声明一个类型
 type RecordItem = {
-  tag: {
-    id: string
-    name: string
-    icon: string
-  }[]
+  tag:tag[]
   notes: string
   type: string
   amount: number

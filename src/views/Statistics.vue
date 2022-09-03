@@ -7,13 +7,14 @@
             @update:value="onUpdateType"
             :types="this.type"/>
 
-      <Tabs class-prefix="interval"
-            :data-source="intervalList"
-            @update:value="onUpdateInterval"
-            :types="this.interval"/>
+<!--      <Tabs class-prefix="interval"-->
+<!--            :data-source="intervalList"-->
+<!--            @update:value="onUpdateInterval"-->
+<!--            :types="this.interval"/>-->
+
       <div class="recordList">
         <ol class="groupList">
-          <li class="groupLi" v-for="(group,index) in groupList" :key="index">
+          <li class="groupLi" v-for="(group,index) in groupedList" :key="index">
             <ol class="groupLiSpan">
               <li class="groupTitle">
                 <span>{{ beautify(group.title) }}</span>
@@ -25,9 +26,11 @@
             <ol class="itemList">
               <li class="itemLi" v-for="item in group.items" :key="item.id">
                 <ol class="msgList">
-                  <li class="icon">icon</li>
+                  <li class="icon">
+                    <Icon name="clothes"></Icon>
+                  </li>
                   <li class="nameAndMsg">
-                    <span class="ItemName">name</span>
+                    <span class="ItemName">{{ tagString(item.tag) }}</span>
                     <span class="notes">{{ item.notes }}</span>
                   </li>
                   <li class="totalAmount">
@@ -51,6 +54,7 @@ import Tabs from '@/components/Tabs.vue';
 import intervalList from '@/constants/intervalList';
 import typeList from '@/constants/typeList';
 import dayjs from 'dayjs';
+import clone from '@/lib/clone';
 
 @Component({
   components: {Tabs, Layout},
@@ -62,12 +66,20 @@ export default class Statistics extends Vue {
 
   interval: string = 'day';
   type: string = '-';
-  intervalList = intervalList;
   typeList = typeList;
 
-  // tagString(tags: tag[]) {
-  //   return tags.length === 0 ? '无' : tags.join(',');
-  // }
+  tagString(tags: tag[]) {
+    if (tags) {
+      return tags.length === 0 ? '无' : tags[0].name;
+    }
+  }
+
+  tagIcon(tags: tag[]) {
+    if (tags) {
+      return tags.length === 0 ? ' ' : tags[0].icon;
+    }
+  }
+
 
   beautify(string: string) {
     const day = dayjs(string);
@@ -85,25 +97,25 @@ export default class Statistics extends Vue {
     }
   }
 
-  get groupList() {
+  get groupedList() {
     const recordList = this.recordList;
-    type HashTableValue = { title: string, items: RecordItem[] }
-    const hashTable: { [key: string]: HashTableValue } = {};
-    for (let i = 0; i < recordList.length; i++) {
-      const [date, time] = recordList[i].createAt.split('T');
-      hashTable[date] = hashTable[date] || {title: date, items: []};
-      hashTable[date].items.push(recordList[i]);
+    if (recordList.length === 0) {return []; }
+    const newList = clone(recordList).sort((a: any, b: any) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());
+    const result = [{title: dayjs(newList[0].createAt).format('YYYY-MM-DD'), items: [newList[0]]}];
+    for (let i = 1; i < newList.length; i++) {
+      const current = newList[i];
+      const last = result[result.length - 1];
+      if (dayjs(last.title).isSame(dayjs(current.createAt), 'day')) {
+        last.items.push(current);
+      } else {
+        result.push({title: dayjs(current.createAt).format('YYYY-MM-DD'), items: [current]});
+      }
     }
-    return hashTable;
+    return result;
   }
 
   created() {
     this.$store.commit('fetchRecords');
-  }
-
-
-  onUpdateInterval(value: string) {
-    this.interval = value;
   }
 
   onUpdateType(value: string) {
@@ -131,15 +143,11 @@ export default class Statistics extends Vue {
         }
       }
     }
-
-    .interval-tabs-item {
-      height: 7vh;
-    }
   }
 
 
   .recordList {
-    height: 75vh;
+    height: 82vh;
     overflow: scroll;
     padding-bottom: 15px;
     background-color: #f5f5f5;
