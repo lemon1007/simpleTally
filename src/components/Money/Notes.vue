@@ -1,10 +1,11 @@
 <template>
   <div class="notes">
-    <MyInput file-name="备注"
+    <MyInput class="input"
+             file-name="备注"
              placeholder="添加备注"
              @update:value="getNotes"/>
-    <Icon class="timer" name="calendar"/>
-    <!--      <input type="datetime-local" id="initTime">-->
+    <!--    <Icon class="timer" name="calendar"/>-->
+<!--    <input type="datetime-local" class="createdAt">-->
   </div>
 </template>
 
@@ -18,6 +19,7 @@ import MyInput from '@/components/MyInput.vue';
 })
 export default class Notes extends Vue {
   value: string = '';
+  // createdAt = new Date().toISOString();
 
   getNotes(notes: string) {
     this.value = notes;
@@ -28,17 +30,23 @@ export default class Notes extends Vue {
 
 <style lang="scss" scoped>
 .notes {
-  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: #f5f5f5;
   font-size: 13px;
 
-  .timer {
-    position: absolute;
-    width: 21px;
-    height: 21px;
-    top: 30%;
-    left: 90%;
-  }
+  //.createdAt {
+  //  top: 0;
+  //  left: 0;
+  //  margin-right: 20px;
+  //  font-size: 15px;
+  //  width: 108px;
+  //  height: 25px;
+  //  border: none;
+  //  background-color: #f5f5f5;
+  //  overflow: hidden;
+  //}
 }
 
 </style>

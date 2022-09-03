@@ -68,6 +68,15 @@ export default class Statistics extends Vue {
   type: string = '-';
   typeList = typeList;
 
+  created() {
+    this.$store.commit('fetchRecords');
+  }
+
+  onUpdateType(value: string) {
+    this.type = value;
+  }
+
+  // 获取item.name
   tagString(tags: tag[]) {
     if (tags) {
       return tags.length === 0 ? '无' : tags[0].name;
@@ -80,6 +89,7 @@ export default class Statistics extends Vue {
   //   }
   // }
 
+  // 获取今天，昨天，明天及日期
   beautify(string: string) {
     const day = dayjs(string);
     const now = dayjs();
@@ -96,23 +106,24 @@ export default class Statistics extends Vue {
     }
   }
 
+  // 列表排序分类等操作
   get groupedList() {
     const recordList = this.recordList;
     if (recordList.length === 0) {return []; }
     const newList = clone(recordList)
         .filter((r: any) => r.type === this.type)
-        .sort((a: any, b: any) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());
+        .sort((a: any, b: any) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
     if (newList.length === 0) {return [] as Result;}
 
     type Result = { title: string, total?: number, items: RecordItem[] }[]
-    const result: Result = [{title: dayjs(newList[0].createAt).format('YYYY-MM-DD'), items: [newList[0]]}];
+    const result: Result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]]}];
     for (let i = 1; i < newList.length; i++) {
       const current = newList[i];
       const last = result[result.length - 1];
-      if (dayjs(last.title).isSame(dayjs(current.createAt), 'day')) {
+      if (dayjs(last.title).isSame(dayjs(current.createdAt), 'day')) {
         last.items.push(current);
       } else {
-        result.push({title: dayjs(current.createAt).format('YYYY-MM-DD'), items: [current]});
+        result.push({title: dayjs(current.createdAt).format('YYYY-MM-DD'), items: [current]});
       }
     }
 
@@ -121,14 +132,6 @@ export default class Statistics extends Vue {
     });
 
     return result;
-  }
-
-  created() {
-    this.$store.commit('fetchRecords');
-  }
-
-  onUpdateType(value: string) {
-    this.type = value;
   }
 };
 </script>

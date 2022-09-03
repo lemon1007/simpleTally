@@ -5,7 +5,7 @@
     </router-link>
 
     <router-link to="/money" class="item" active-class="selected">
-      <Icon name="money"/>
+      <Icon name="home"/>
     </router-link>
 
     <router-link to="/statistics" class="item" active-class="selected">
@@ -13,7 +13,7 @@
     </router-link>
 
     <router-link to="/charts" class="item" active-class="selected">
-      <Icon name ='foods'/>
+      <Icon name ='charts'/>
     </router-link>
   </nav>
 </template>

@@ -1,12 +1,17 @@
 <template>
   <Layout>
-    <!--    {{ recordList }}-->
     <Tabs :data-source="typeList"
           @update:value="onUpdateType"
           :types="record.type"/>
     <Tags :tag-source.sync="tagList"
           @update:value="onUpdateTags"></Tags>
     <Notes @update:value="onUpdateNotes"></Notes>
+    <div class="createAt">
+      <MyInput file-name="时间"
+               placeholder="请输入时间"
+               :value="record.createdAt"
+               type="date"/>
+    </div>
     <NumberPad :amount="record.amount"
                @update:value="onUpdateAmount"
                @submit="saveRecord"></NumberPad>
@@ -27,10 +32,11 @@ import Public from '@/public';
 import createId from '@/lib/createId';
 import store from '@/store';
 import typeList from '@/constants/typeList';
+import MyInput from '@/components/MyInput.vue';
 
 
 @Component({
-  components: {Layout, Tags, Notes, NumberPad, Tabs},
+  components: {MyInput, Layout, Tags, Notes, NumberPad, Tabs},
 })
 export default class Money extends Vue {
   // 对象初始化
@@ -38,7 +44,8 @@ export default class Money extends Vue {
     tag: [],
     notes: '',
     type: '-',
-    amount: 0
+    amount: 0,
+    createdAt: new Date().toISOString()
   };
 
   typeList = typeList;
@@ -84,4 +91,10 @@ export default class Money extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.createAt {
+  background-color: #f5f5f5;
+  font-size: 13px;
+  margin-top: -25px;
+}
+
 </style>
