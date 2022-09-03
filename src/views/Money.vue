@@ -10,6 +10,7 @@
       <MyInput file-name="时间"
                placeholder="请输入时间"
                :value="record.createdAt"
+               @update:value="getCreatedAt"
                type="date"/>
     </div>
     <NumberPad :amount="record.amount"
@@ -87,6 +88,11 @@ export default class Money extends Vue {
   onUpdateAmount(value: string) {
     this.record.amount = parseFloat(value);
   }
+
+  // 获取用户传输的创建时间
+  getCreatedAt(value: any) {
+    this.record.createdAt = value;
+  }
 };
 </script>
 
@@ -94,7 +100,7 @@ export default class Money extends Vue {
 .createAt {
   background-color: #f5f5f5;
   font-size: 13px;
-  margin-top: -25px;
+  margin-top: -10px;
 }
 
 </style>

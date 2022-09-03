@@ -23,9 +23,9 @@ const store = new Vuex.Store({
     fetchRecords(state) {
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
     },
-    createRecord(state, record) {
-      const deepRecord: RecordItem = clone(record);
-      deepRecord.createdAt = new Date().toISOString();
+    createRecord(state, record: RecordItem) {
+      const deepRecord = clone(record);
+      deepRecord.createdAt = deepRecord.createdAt || new Date().toISOString();
       state.recordList.push(deepRecord);
       store.commit('saveRecord');
       window.alert('添加成功');
