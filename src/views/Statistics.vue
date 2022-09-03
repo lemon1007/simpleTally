@@ -22,9 +22,9 @@
             <ol class="itemList">
               <li class="itemLi" v-for="item in group.items" :key="item.id">
                 <ol class="msgList">
-                  <li class="icon">
+                  <li class="iconLi">
                     <span>
-                      <Icon name="clothes" class="icons"/>
+                      <Icon name="clothes" class="icon"/>
                     </span>
                   </li>
                   <li class="nameAndMsg">
@@ -52,7 +52,6 @@ import Layout from '@/components/Layout.vue';
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Tabs from '@/components/Tabs.vue';
-import intervalList from '@/constants/intervalList';
 import typeList from '@/constants/typeList';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
@@ -74,11 +73,11 @@ export default class Statistics extends Vue {
     }
   }
 
-  tagIcon(tags: tag[]) {
-    if (tags) {
-      return tags.length === 0 ? 'icon' : tags[0].icon;
-    }
-  }
+  // tagIcon(tags: tag[]) {
+  //   if (tags) {
+  //     return tags.length === 0 ? 'icon' : tags[0].icon;
+  //   }
+  // }
 
   beautify(string: string) {
     const day = dayjs(string);
@@ -102,6 +101,7 @@ export default class Statistics extends Vue {
     const newList = clone(recordList)
         .filter((r: any) => r.type === this.type)
         .sort((a: any, b: any) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());
+    if (newList.length === 0) {return [] as Result;}
 
     type Result = { title: string, total?: number, items: RecordItem[] }[]
     const result: Result = [{title: dayjs(newList[0].createAt).format('YYYY-MM-DD'), items: [newList[0]]}];
@@ -202,19 +202,30 @@ export default class Statistics extends Vue {
                 height: 9vh;
                 border-bottom: 1px solid #f5f5f5;
 
-                &.icon {
+                &.iconLi {
                   width: 20%;
                   text-align: center;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+
+                  .icon {
+                    width: 27px;
+                    height: 27px;
+                    margin-top: 13px;
+                  }
                 }
 
                 &.nameAndMsg {
                   width: 50%;
                   text-align: left;
                   position: relative;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
 
                   .ItemName {
                     position: absolute;
-                    top: -5px;
+                    top: -3px;
                     left: 0;
                     width: 89%;
                     overflow: hidden;
@@ -225,11 +236,12 @@ export default class Statistics extends Vue {
                     position: absolute;
                     font-size: 13px;
                     color: darkgrey;
-                    top: 14px;
+                    top: 15px;
                     left: 0;
                     width: 89%;
-                    overflow: hidden;
                     text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
                   }
                 }
 
@@ -245,8 +257,9 @@ export default class Statistics extends Vue {
                     width: 90%;
                     text-align: right;
                     font-size: 14px;
-                    overflow: hidden;
                     text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
                   }
                 }
               }
