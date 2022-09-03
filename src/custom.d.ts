@@ -8,7 +8,7 @@ type RecordItem = {
   notes: string
   type: string
   amount: number
-  createAt?: Date   // 加？表示可以不存在
+  createAt?: String   // 加？表示可以不存在
 }
 
 // 定义单个tag的类型

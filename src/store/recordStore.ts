@@ -13,7 +13,7 @@ const recordStore = {
   },
   createRecord(record: RecordItem) {
     const deepRecord: RecordItem = clone(record);
-    deepRecord.createAt = new Date();
+    deepRecord.createAt = new Date().toISOString();
     this.recordList?.push(deepRecord);
     recordStore.saveRecord();
   },

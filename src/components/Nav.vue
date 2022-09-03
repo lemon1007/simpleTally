@@ -2,17 +2,18 @@
   <nav>
     <router-link to="/labels" class="item" active-class="selected">
       <Icon name="label"/>
-      标签
     </router-link>
 
     <router-link to="/money" class="item" active-class="selected">
       <Icon name="money"/>
-      记账
     </router-link>
 
     <router-link to="/statistics" class="item" active-class="selected">
       <Icon name="statistics"/>
-      统计
+    </router-link>
+
+    <router-link to="/charts" class="item" active-class="selected">
+      <Icon name ='foods'/>
     </router-link>
   </nav>
 </template>
@@ -43,7 +44,7 @@ nav {
 
   > .item {
     padding: 7px 0;
-    width: 33.33333%;
+    width: 25%;
     display: flex;
     justify-content: center;
     align-items: center;
