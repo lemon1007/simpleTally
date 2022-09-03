@@ -38,7 +38,7 @@ export default class NumberPad extends Vue {
     const input = button.textContent as string;
     const len = this.output.length;
     // 初始值为0的相关判定
-    if (this.output.length === 10) {return;}
+    if (this.output.length === 9) {return;}
     if (this.output === '0') {
       if ('0123456789'.indexOf(input) >= 0) {
         this.output = input;
@@ -85,8 +85,9 @@ export default class NumberPad extends Vue {
 
   // 确认完成功能，待完善
   ok() {
-    this.$emit('update:value', this.output);
-    this.$emit('submit', this.output);
+    const number = parseFloat(this.output)
+    this.$emit('update:value',number);
+    this.$emit('submit', number);
     this.output = '0';
   }
 }
