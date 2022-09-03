@@ -13,10 +13,10 @@
             :types="this.interval"/>
       <div class="recordList">
         <ol class="groupList">
-          <li class="groupLi" v-for="(group,index) in result" :key="index">
+          <li class="groupLi" v-for="(group,index) in groupList" :key="index">
             <ol class="groupLiSpan">
               <li class="groupTitle">
-                <span>{{ group.title }}</span>
+                <span>{{ beautify(group.title) }}</span>
               </li>
               <li class="totalAmount">
                 <span>总金额</span>
@@ -50,6 +50,7 @@ import {Component} from 'vue-property-decorator';
 import Tabs from '@/components/Tabs.vue';
 import intervalList from '@/constants/intervalList';
 import typeList from '@/constants/typeList';
+import dayjs from 'dayjs';
 
 @Component({
   components: {Tabs, Layout},
@@ -68,7 +69,23 @@ export default class Statistics extends Vue {
   //   return tags.length === 0 ? '无' : tags.join(',');
   // }
 
-  get result() {
+  beautify(string: string) {
+    const day = dayjs(string);
+    const now = dayjs();
+    if (day.isSame(now, 'day')) {
+      return '今天';
+    } else if (day.isSame(now.subtract(1, 'day'), 'day')) {
+      return '昨天';
+    } else if (day.isSame(now.subtract(2, 'day'), 'day')) {
+      return '前天';
+    } else if (day.isSame(now, 'year')) {
+      return day.format('M月D日');
+    } else {
+      return day.format('YYYY年M月D日');
+    }
+  }
+
+  get groupList() {
     const recordList = this.recordList;
     type HashTableValue = { title: string, items: RecordItem[] }
     const hashTable: { [key: string]: HashTableValue } = {};
@@ -77,7 +94,6 @@ export default class Statistics extends Vue {
       hashTable[date] = hashTable[date] || {title: date, items: []};
       hashTable[date].items.push(recordList[i]);
     }
-    console.log(hashTable);
     return hashTable;
   }
 
@@ -194,7 +210,7 @@ export default class Statistics extends Vue {
                     font-size: 13px;
                     color: darkgrey;
                     top: 14px;
-                    left:0;
+                    left: 0;
                     width: 89%;
                     overflow: hidden;
                     text-overflow: ellipsis;
