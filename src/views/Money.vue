@@ -66,6 +66,9 @@ export default class Money extends Vue {
   // 储存用户输入的record信息
   saveRecord() {
     this.$store.commit('createRecord', this.record);
+    if (this.$store.state.createRecordError === null) {
+      window.alert('添加成功');
+    }
   }
 
   // 获取用户选择的标签

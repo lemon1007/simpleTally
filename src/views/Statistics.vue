@@ -6,7 +6,7 @@
             :data-source="typeList"
             @update:value="onUpdateType"
             :types="this.type"/>
-      <div class="recordList">
+      <div class="recordList" v-if="groupedList.length>0">
         <ol class="groupList">
           <li class="groupLi" v-for="(group,index) in groupedList" :key="index">
             <ol class="groupLiSpan">
@@ -42,6 +42,9 @@
             </ol>
           </li>
         </ol>
+      </div>
+      <div v-else class="recordListNo">
+        <span>目前没有相关记录</span>
       </div>
     </div>
   </Layout>
@@ -159,6 +162,15 @@ export default class Statistics extends Vue {
         }
       }
     }
+  }
+
+  .recordListNo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: darkgray;
+    background-color: #f5f5f5;
+    height: 82vh;
   }
 
 

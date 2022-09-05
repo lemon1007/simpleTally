@@ -55,4 +55,9 @@ const router = new VueRouter({
   routes
 });
 
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function (location: string): any {
+  return (originalPush.call(this, location) as any).catch((err: any) => err);
+};
+
 export default router;

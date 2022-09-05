@@ -8,12 +8,15 @@ Vue.use(Vuex);
 
 type RootState = {
   recordList: RecordItem[],
+  createRecordError: Error | null,
   tagList: tag[],
   currentTag?: tag
 }
+
 const store = new Vuex.Store({
   state: {
     recordList: [],
+    createRecordError: null,
     tagList: [],
     currentTag: undefined,
   } as RootState,
@@ -28,7 +31,6 @@ const store = new Vuex.Store({
       deepRecord.createdAt = deepRecord.createdAt || new Date().toISOString();
       state.recordList.push(deepRecord);
       store.commit('saveRecord');
-      window.alert('添加成功');
     },
     saveRecord(state) {
       window.localStorage.setItem('recordList', JSON.stringify(state.recordList));
@@ -39,10 +41,13 @@ const store = new Vuex.Store({
       state.currentTag = state.tagList.filter(t => t.id === id)[0];
     },
     fetchTags(state) {
-      return state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
-      // if (!state.tagList || state.tagList.length === 0) {
-      //   // store.commit('createTag', [{'其他', 'star'}]);
-      // }
+      state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+      if (!state.tagList || state.tagList.length === 0) {
+        store.commit('createTag', {name: '其他', icon: 'star'});
+        store.commit('createTag', {name: '购物消费', icon: 'cart'});
+        store.commit('createTag', {name: '食品餐饮', icon: 'foods'});
+        store.commit('createTag', {name: '交通出行', icon: 'traffic'});
+      }
     },
     createTag(state, tag) {
       const names = state.tagList.map(item => item.name);
@@ -52,7 +57,6 @@ const store = new Vuex.Store({
         const id = createId().toString();
         state.tagList.push({id, name: tag.name, icon: tag.icon});
         store.commit('saveTags');
-        window.alert('添加成功');
         router.replace('/');
       }
     },

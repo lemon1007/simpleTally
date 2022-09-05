@@ -1,6 +1,6 @@
 // 声明一个类型
 type RecordItem = {
-  tag:tag[]
+  tag: tag[]
   notes: string
   type: string
   amount: number
