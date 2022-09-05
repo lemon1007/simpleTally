@@ -10,7 +10,7 @@
         <li>
           <span>线形图</span>
           <div class="chartOne-wrapper" ref="chartWrapper">
-            <ChartOne class="chartOne" :options="x"></ChartOne>
+            <ChartOne class="chartOne" :options="chartOptions"></ChartOne>
           </div>
         </li>
         <li>
@@ -32,6 +32,7 @@ import typeList from '@/constants/typeList';
 import ChartOne from '@/components/Charts/ChartOne.vue';
 import _ from 'lodash';
 import dayjs from 'dayjs';
+import clone from '@/lib/clone';
 
 @Component({
   components: {ChartOne, Tabs},
@@ -44,6 +45,10 @@ export default class Charts extends Vue {
   type: string = '-';
   typeList = typeList;
 
+  onUpdateType(value: string) {
+    this.type = value;
+  }
+
   created() {
     this.$store.commit('fetchRecords');
   }
@@ -53,7 +58,35 @@ export default class Charts extends Vue {
     div.scrollLeft = div.scrollWidth;
   }
 
-  get y() {
+  // groupedList获取
+  get groupedList() {
+    const recordList = this.recordList;
+    if (recordList.length === 0) {return []; }
+    const newList = clone(recordList)
+        .filter((r: any) => r.type === this.type)
+        .sort((a: any, b: any) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+    if (newList.length === 0) {return [] as Result;}
+
+    type Result = { title: string, total?: number, items: RecordItem[] }[]
+    const result: Result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]]}];
+    for (let i = 1; i < newList.length; i++) {
+      const current = newList[i];
+      const last = result[result.length - 1];
+      if (dayjs(last.title).isSame(dayjs(current.createdAt), 'day')) {
+        last.items.push(current);
+      } else {
+        result.push({title: dayjs(current.createdAt).format('YYYY-MM-DD'), items: [current]});
+      }
+    }
+
+    result.forEach(group => {
+      group.total = group.items.reduce((sum, item) => sum + item.amount, 0);
+    });
+
+    return result;
+  }
+
+  get keyValueList() {
     const today = new Date();
     const array = [];
     for (let i = 0; i <= 29; i++) {
@@ -61,18 +94,18 @@ export default class Charts extends Vue {
           .subtract(i, 'day')
           .format('YYYY-MM-DD');
 
-      const found = _.find(this.recordList, {
-        createdAt: date
+      const found = _.find(this.groupedList, {
+        title: date
       });
       array.push({
-        date: date,
-        amount: found ? found.amount : 0
+        createdAt: date,
+        amount: found ? found.total : 0
       });
     }
     array.sort((a, b) => {
-          if (a.date > b.date) {
+          if (a.createdAt > b.createdAt) {
             return 1;
-          } else if (a.date === b.date) {
+          } else if (a.createdAt === b.createdAt) {
             return 0;
           } else {
             return -1;
@@ -82,9 +115,9 @@ export default class Charts extends Vue {
     return array;
   }
 
-  get x() {
-    const keys = this.y.map(item => item.date);
-    const values = this.y.map(item => item.amount);
+  get chartOptions() {
+    const keys = this.keyValueList.map(item => item.createdAt);
+    const values = this.keyValueList.map(item => item.amount);
 
     return {
       // 控制图标与包裹图标的div之间的间距
@@ -130,10 +163,6 @@ export default class Charts extends Vue {
         show: true
       }
     };
-  }
-
-  onUpdateType(value: string) {
-    this.type = value;
   }
 }
 </script>
