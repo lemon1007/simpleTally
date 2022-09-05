@@ -103,6 +103,11 @@ export default class Charts extends Vue {
           lineStyle: {
             color: '#af0a0a'  // 字体颜色
           }
+        },
+        axisLabel: {
+          formatter: function (value: string) {
+            return value.substr(5);
+          }
         }
       },
       yAxis: {
@@ -165,5 +170,4 @@ export default class Charts extends Vue {
     }
   }
 }
-
 </style>
