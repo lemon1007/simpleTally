@@ -19,4 +19,9 @@ body {
   line-height: 1.5;
   font-family: $font-hei;
 }
+
+#app {
+  max-width: 500px;
+  margin: auto;
+}
 </style>

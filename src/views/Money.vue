@@ -111,8 +111,9 @@ export default class Money extends Vue {
 
   .createAtInput {
     position: absolute;
-    top: -46px;
+    top: -7vh;
     left: 59%;
+    line-height: 7vh;
   }
 }
 
