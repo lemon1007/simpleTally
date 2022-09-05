@@ -9,8 +9,8 @@
         <Icon @click.native="createTag" class="icons" name="ensure"/>
       </li>
     </ul>
-    <AddTagName @send-tag-name="getTagName"></AddTagName>
-    <TagList @send-tag-icon="getTagIcon"></TagList>
+      <AddTagName @send-tag-name="getTagName"></AddTagName>
+      <TagList @send-tag-icon="getTagIcon"></TagList>
   </div>
 </template>
 
@@ -46,15 +46,22 @@ export default class addTags extends Vue {
   }
 
   map: { [key: string]: string } = {
-    'tag name duplicated': '标签已存在'
+    'tag name duplicated': '标签已存在',
+    'create tag success': '添加成功'
   };
 
   // 添加标签
   createTag() {
     const name = this.name;
     const icon = this.icon;
-    if (!name) {window.alert('请输入标签名');}
-    if (!icon) {window.alert('请选择标签');}
+    if (!name) {
+      window.alert('请输入标签名');
+      return;
+    }
+    if (!icon) {
+      window.alert('请选择标签');
+      return;
+    }
     if (name && icon) {
       this.$store.commit('createTag', {name, icon});
       if (this.$store.state.createTagError) {
@@ -74,7 +81,7 @@ export default class addTags extends Vue {
 
 .nav {
   width: 100%;
-  min-height: 9vh;
+  height: 9vh;
   background-color: $color-theme;
   display: flex;
   align-items: center;
@@ -93,5 +100,8 @@ export default class addTags extends Vue {
       height: 22px;
     }
   }
+}
+.content{
+  height: 91vh;
 }
 </style>

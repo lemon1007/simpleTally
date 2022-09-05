@@ -55,6 +55,7 @@ export default class Tags extends Vue {
   min-height: 38vh;
   max-height: 38vh;
   overflow: scroll;
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -69,7 +70,8 @@ export default class Tags extends Vue {
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      margin-left: 23px;
+      margin-left: 5.5%;
+      margin-right: 1.5%;
       margin-top: 16px;
       width: 64px;
       height: 64px;

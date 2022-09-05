@@ -20,7 +20,7 @@ export default class TagList extends Vue {
   selectedTags: string[] = [];
 
   // 循环获取图标
-  tagList = ['shoucang', 'cosmetic', 'change', 'camer', 'keys', 'clothes', 'foods', 'houses', 'traffic', 'baby', 'cart', 'dog', 'game', 'heart', 'kefu', 'medicine', 'milktea', 'phone', 'qiche', 'qq', 'shoe', 'smoke', 'tie', 'to', 'touzi', 'umbrella', 'chair', 'liqing', 'caibo', 'weibo', 'dianying', 'tags', 'clock', 'collect', 'lock', 'safe', 'shanzi'];
+  tagList = ['shoucang', 'cosmetic', 'change', 'camer', 'keys', 'clothes', 'foods', 'houses', 'traffic', 'baby', 'cart', 'dog', 'game', 'heart', 'kefu', 'medicine', 'milktea', 'phone', 'qiche', 'qq', 'shoe', 'tie', 'to', 'touzi', 'umbrella', 'chair', 'liqing', 'caibo', 'weibo', 'dianying', 'tags', 'clock', 'collect', 'lock', 'safe', 'shanzi'];
 
   // 选中图标
   selectToggle(tags: string) {
@@ -40,17 +40,19 @@ export default class TagList extends Vue {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  padding: 8px 10px 8px 10px;
+  justify-content: space-between;
+  margin: 10px 25px;
   overflow: scroll;
 
   > li {
-    margin: 5px 10px;
+    margin-top: 7px;
+    margin-left: 7px;
+    margin-right: 7px;
 
     .icons {
       margin-bottom: 2px;
-      width: 50px;
-      height: 50px;
+      width: 48px;
+      height: 48px;
       padding: 10px;
       background-color: #f5f5f5;
     }

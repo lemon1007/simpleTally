@@ -53,6 +53,8 @@ const store = new Vuex.Store({
         const id = createId().toString();
         state.tagList.push({id, name: tag.name, icon: tag.icon});
         store.commit('saveTags');
+        state.createTagError = new Error('create tag success');
+        router.back();
       }
     },
 
