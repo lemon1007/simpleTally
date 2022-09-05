@@ -154,10 +154,10 @@ export default class EditLabel extends Vue {
     height: 72vh;
     overflow: scroll;
     background-color: white;
-  }
 
-  .tagList::-webkit-scrollbar {
-    display: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }
 </style>

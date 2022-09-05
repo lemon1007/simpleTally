@@ -60,6 +60,10 @@ export default class Labels extends Vue {
   overflow: scroll;
   background-color: #f5f5f5;
 
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   .tagLi {
     display: flex;
     flex-direction: row;
@@ -87,9 +91,6 @@ export default class Labels extends Vue {
   }
 }
 
-.tags::-webkit-scrollbar {
-  display: none;
-}
 
 .createTag-wrapper {
   min-height: 32vh;

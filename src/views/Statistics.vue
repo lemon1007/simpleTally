@@ -164,6 +164,10 @@ export default class Statistics extends Vue {
     padding-bottom: 15px;
     background-color: #f5f5f5;
 
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
     .groupList {
       .groupLi {
         background-color: #f5f5f5;
@@ -191,7 +195,7 @@ export default class Statistics extends Vue {
         .itemList {
           background-color: white;
           width: 93%;
-          border-radius: 5px;
+          border-radius: 7px;
 
           .itemLi {
             line-height: 7vh;
@@ -272,10 +276,6 @@ export default class Statistics extends Vue {
         }
       }
     }
-  }
-
-  .recordList::-webkit-scrollbar {
-    display: none;
   }
 }
 </style>

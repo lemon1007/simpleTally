@@ -55,6 +55,9 @@ export default class Tags extends Vue {
   min-height: 38vh;
   max-height: 38vh;
   overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   .current {
     display: flex;
@@ -87,9 +90,5 @@ export default class Tags extends Vue {
       }
     }
   }
-}
-
-.tags::-webkit-scrollbar {
-  display: none;
 }
 </style>

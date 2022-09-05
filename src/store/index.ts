@@ -50,7 +50,7 @@ const store = new Vuex.Store({
         state.tagList.push({id, name: tag.name, icon: tag.icon});
         store.commit('saveTags');
         window.alert('添加成功');
-        router.back();
+        router.replace('/');
       }
     },
 
