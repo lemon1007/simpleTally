@@ -30,6 +30,8 @@ import {Component} from 'vue-property-decorator';
 import Tabs from '@/components/Tabs.vue';
 import typeList from '@/constants/typeList';
 import ChartOne from '@/components/Charts/ChartOne.vue';
+import _ from 'lodash';
+import dayjs from 'dayjs';
 
 @Component({
   components: {ChartOne, Tabs},
@@ -51,7 +53,39 @@ export default class Charts extends Vue {
     div.scrollLeft = div.scrollWidth;
   }
 
+  get y() {
+    const today = new Date();
+    const array = [];
+    for (let i = 0; i <= 29; i++) {
+      const date = dayjs(today)
+          .subtract(i, 'day')
+          .format('YYYY-MM-DD');
+
+      const found = _.find(this.recordList, {
+        createdAt: date
+      });
+      array.push({
+        date: date,
+        amount: found ? found.amount : 0
+      });
+    }
+    array.sort((a, b) => {
+          if (a.date > b.date) {
+            return 1;
+          } else if (a.date === b.date) {
+            return 0;
+          } else {
+            return -1;
+          }
+        }
+    );
+    return array;
+  }
+
   get x() {
+    const keys = this.y.map(item => item.date);
+    const values = this.y.map(item => item.amount);
+
     return {
       // 控制图标与包裹图标的div之间的间距
       grid: {
@@ -61,11 +95,7 @@ export default class Charts extends Vue {
       },
       xAxis: {
         type: 'category',
-        data: [
-          '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-          '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
-          '21', '22', '23', '24', '25', '26', '27', '28', '29', '30',
-        ],
+        data: keys,
         axisTick: {
           alignWithLabel: true
         },
@@ -80,11 +110,7 @@ export default class Charts extends Vue {
         show: false
       },
       series: [{
-        data: [
-          80, 92, 91, 94, 129, 133, 132, 124, 97, 122,
-          80, 92, 91, 94, 129, 133, 132, 124, 97, 122,
-          80, 92, 91, 94, 129, 133, 132, 124, 97, 122,
-        ],
+        data: values,
         itemStyle: {
           color: '#af0a0a'  // 圆点颜色时
         },
