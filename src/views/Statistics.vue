@@ -35,7 +35,6 @@
                     <span>
                       {{ item.type }}
                       {{ item.amount }}
-<!--                      <span>删除</span>-->
                     </span>
                   </li>
                 </ol>
@@ -138,16 +137,6 @@ export default class Statistics extends Vue {
 
     return result;
   }
-
-
-  // removeRecord() {
-  // if (this.record.tag[0].id) {
-  //   this.$store.commit('removeRecord', this.record.tag[0].id);
-  // } else {
-  //   console.log('找不到record');
-  // }
-  // console.log(this.record.tag[0].id)
-  // }
 };
 </script>
 

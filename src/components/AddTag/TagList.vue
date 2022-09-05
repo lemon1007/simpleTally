@@ -17,7 +17,7 @@ import {Component} from 'vue-property-decorator';
 @Component
 export default class TagList extends Vue {
   // 变量定义
-  selectedTags: string[] = [];
+  selectedTags = ['shoucang'];
 
   // 循环获取图标
   tagList = ['shoucang', 'cosmetic', 'change', 'camer', 'keys', 'clothes', 'foods', 'houses', 'traffic', 'baby', 'cart', 'dog', 'game', 'heart', 'kefu', 'medicine', 'milktea', 'phone', 'qiche', 'qq', 'shoe', 'smoke', 'tie', 'to', 'touzi', 'umbrella', 'chair', 'liqing', 'caibo', 'weibo', 'dianying', 'tags', 'clock', 'collect', 'lock', 'safe', 'shanzi'];
@@ -58,6 +58,7 @@ export default class TagList extends Vue {
     &.selected {
       .icons {
         background-color: $color-theme;
+        color: white;
       }
     }
   }

@@ -8,20 +8,17 @@
 
       <ul class="chartsList">
         <li>
-          <span>线形图</span>
           <div class="chartLine-wrapper" ref="chartLineWrapper">
             <ChartLine class="chartLine" :options="chartLineOptions"></ChartLine>
           </div>
         </li>
 
         <li>
-          <span>柱形图</span>
           <div class="chartHistogram-wrapper" ref="chartHistogramWrapper">
             <ChartHistogram class="chartHistogram" :options="chartHistogramOptions"></ChartHistogram>
           </div>
         </li>
         <li>
-          <span>扇形图</span>
           <div class="chartSector-wrapper" ref="chartSectorWrapper">
             <ChartSector class="chartSector" :options="chartSectorOptions"></ChartSector>
           </div>
@@ -125,26 +122,6 @@ export default class Charts extends Vue {
     return array;
   }
 
-
-  get NameValueList() {
-    const today = new Date();
-    const array = [];
-    for (let i = 0; i <= 6; i++) {
-      const date = dayjs(today)
-          .subtract(i, 'day')
-          .format('YYYY-MM-DD');
-
-      const found = _.find(this.groupedList, {title: date});
-      if (found && found.items[0].amount && found.items[0].tag[0]) {
-        array.push({
-          amount: found.items[0].amount,
-          name: found.items[0].tag[0].name
-        });
-      }
-    }
-    return array;
-  }
-
   get chartLineOptions() {
     const keys = this.keyValueList.map(item => item.createdAt);
     const values = this.keyValueList.map(item => item.amount);
@@ -153,7 +130,7 @@ export default class Charts extends Vue {
       grid: {
         left: 0,
         right: 0,
-        bottom: 40,
+        bottom: 50,
       },
       xAxis: {
         type: 'category',
@@ -182,7 +159,23 @@ export default class Charts extends Vue {
           color: '#ffe600'  // 圆点颜色时
         },
         type: 'line',
-        symbolSize: 10, // 圆的大小
+        areaStyle: {
+          color: {              // 颜色过渡
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [{
+              offset: 0, color: '#ffe600'
+            }, {
+              offset: 1, color: '#ffffff'
+            }],
+            global: false
+          }
+        },
+
+        symbolSize: 8, // 圆的大小
         smooth: true,  // 弧度
         symbol: 'circle'  // 实心圆
       }],
@@ -201,8 +194,8 @@ export default class Charts extends Vue {
       grid: {
         left: 20,
         right: 0,
-        bottom: 40,
-        top: 20
+        bottom: 50,
+        top: 40,
       },
       xAxis: {
         type: 'category',
@@ -223,50 +216,84 @@ export default class Charts extends Vue {
         type: 'value',
         show: false
       },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'none'
+        }
+      },
       series: [
         {
           data: values,
           type: 'bar',
           itemStyle: {
-            color: '#ffe600'
+            normal: {
+              color: '#ffe600',
+              label: {
+                show: true,
+                position: 'top',
+                textStyle: {
+                  color: 'black',
+                  fontSize: 12
+                }
+              }
+            }
           },
         },
       ],
     };
   }
 
+  // 待解决，相同name的amount没有合并
   get chartSectorOptions() {
-    const keys = this.NameValueList.map(item => item.name);
-    const values = this.NameValueList.map(item => item.amount);
+    const today = new Date();
+    const array = [];
+    for (let i = 0; i <= 30; i++) {
+      const date = dayjs(today)
+          .subtract(i, 'day')
+          .format('YYYY-MM-DD');
+
+      const found = _.find(this.groupedList, {title: date});
+      if (found && found.items[0].amount && found.items[0].tag[0]) {
+        array.push({
+          value: found.items[0].amount,
+          name: found.items[0].tag[0].name
+        });
+      }
+    }
+
     return {
       title: {
-        text: '近7日各项占比',
+        text: '近30日各项占比',
+        top: '40px',  // text距离顶部的距离
         left: 'center'
       },
       tooltip: {
-        trigger: 'item'
+        trigger: 'item',
       },
       series: [
         {
           type: 'pie',
           radius: '50%',
-          data: [
-            {value: values[0], name: keys[0]},
-            {value: values[1], name: keys[1]},
-            {value: values[2], name: keys[2]},
-            {value: values[3], name: keys[3]},
-            {value: values[4], name: keys[4]},
-            {value: values[5], name: keys[5]},
-            {value: values[6], name: keys[6]},
-          ],
+          colorBy: 'data',   // series按系列配色，data按数据配色
+          data: array,
           emphasis: {
             itemStyle: {
               shadowBlur: 10,
               shadowOffsetX: 0,
-              shadowColor: '#333'
+              shadowColor: '#333',
             }
-          }
-        }
+          },
+          itemStyle: {
+            normal: {
+              color: function (colors: any) {
+                const colorList = ['#fae100', '#ffcd00', '#ffbe4d', '#f9ae08', '#f1a308', '#dbb76b'];
+                return colorList[colors.dataIndex];
+              }
+            }
+          },
+          center: ['50%', '57%'],
+        },
       ]
     };
   }
@@ -297,6 +324,7 @@ export default class Charts extends Vue {
       background-color: white;
       margin-top: 30px;
       border-radius: 7px;
+      position: relative;
 
       .chartLine {
         width: 430%;

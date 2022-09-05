@@ -86,6 +86,7 @@ export default class Tags extends Vue {
       &.selected {
         .icons {
           background-color: $color-theme;
+          color: white;
         }
       }
     }

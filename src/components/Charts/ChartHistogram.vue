@@ -27,6 +27,6 @@ export default class ChartHistogram extends Vue {
 
 <style lang="scss" scoped>
 .wrapper {
-  height: 200px;
+  height: 260px;
 }
 </style>

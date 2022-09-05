@@ -7,8 +7,6 @@ import NotFound from '@/views/NotFound.vue';
 import AddTag from '@/views/AddTag.vue';
 import EditLabel from '@/views/EditLabel.vue';
 import Charts from '@/views/Charts.vue';
-import test from '@/views/test.vue';
-
 
 Vue.use(VueRouter);
 
