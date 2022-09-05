@@ -35,18 +35,6 @@ export default class Notes extends Vue {
   align-items: center;
   background-color: #f5f5f5;
   font-size: 13px;
-
-  //.createdAt {
-  //  top: 0;
-  //  left: 0;
-  //  margin-right: 20px;
-  //  font-size: 15px;
-  //  width: 108px;
-  //  height: 25px;
-  //  border: none;
-  //  background-color: #f5f5f5;
-  //  overflow: hidden;
-  //}
 }
 
 </style>

@@ -29,7 +29,7 @@
                   </li>
                   <li class="nameAndMsg">
                     <span class="ItemName">{{ tagString(item.tag) }}</span>
-                    <span class="notes">{{ item.notes }}</span>
+                    <span class="notes">{{item.notes}}</span>
                   </li>
                   <li class="totalAmount">
                     <span>

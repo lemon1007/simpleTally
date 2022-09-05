@@ -1,7 +1,5 @@
 <template>
-  <div class="wrapper" ref="wrapper">
-
-  </div>
+  <div class="wrapper" ref="wrapper"></div>
 </template>
 
 <script lang="ts">

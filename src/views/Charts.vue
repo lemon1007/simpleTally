@@ -13,6 +13,7 @@
             <ChartOne class="chartOne" :options="chartOptions"></ChartOne>
           </div>
         </li>
+
         <li>
           <span>柱形图</span>
         </li>
