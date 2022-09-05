@@ -5,20 +5,20 @@
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
       <button @click="inputContent">3</button>
-      <button @click="remove" data-type="remove">
+      <button @click="remove">
         <Icon name="delete" class="deleteFont"/>
       </button>
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
-      <button @click="inputContent" data-type="add">+</button>
+      <button></button>
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
-      <button @click="inputContent" data-type="sub">-</button>
+      <button></button>
       <button @click="inputContent">0</button>
       <button @click="inputContent">.</button>
-      <button @click="count" data-type="count">=</button>
+      <button @click="empty">清空</button>
       <button class="ok" @click="ok">完成</button>
     </div>
   </div>
@@ -47,30 +47,7 @@ export default class NumberPad extends Vue {
       }
       return;
     }
-    // 标点符号的相关判定
-    // if ((this.output[len - 1] === '.' || '+' || '-') &&
-    //     (input === '.' || '+' || '-')) {
-    //   return;
-    // }
     this.output += input;
-  }
-
-  // 加减计算,待完善
-  count() {
-    const addIndex = this.output.indexOf('+');
-    const subIndex = this.output.indexOf('-');
-    const num1 = parseFloat(this.output.slice(0, addIndex));
-    const num2 = parseFloat(this.output.slice(addIndex + 1));
-    const num3 = parseFloat(this.output.slice(0, subIndex));
-    const num4 = parseFloat(this.output.slice(subIndex + 1));
-    if (addIndex >= 0) {
-      this.output = (num1 + num2).toString();
-    }
-    if (subIndex >= 0) {
-      this.output = (num3 - num4).toString();
-    } else {
-      return;
-    }
   }
 
   // 回删功能
@@ -83,10 +60,18 @@ export default class NumberPad extends Vue {
     }
   }
 
-  // 确认完成功能，待完善
+  empty() {
+    this.output = '0';
+  }
+
+  // 确认完成功能
   ok() {
-    const number = parseFloat(this.output)
-    this.$emit('update:value',number);
+    if (this.output === '0') {
+      window.alert('请输入有效金额');
+      return;
+    }
+    const number = parseFloat(this.output);
+    this.$emit('update:value', number);
     this.$emit('submit', number);
     this.output = '0';
   }
@@ -111,7 +96,6 @@ export default class NumberPad extends Vue {
     display: flex;
     flex-wrap: wrap;
 
-
     > button {
       width: 25%;
       min-height: 7.5vh;
@@ -123,6 +107,7 @@ export default class NumberPad extends Vue {
 
       &.ok {
         background-color: $color-theme;
+        margin-top: -15vh;
       }
 
       .deleteFont {

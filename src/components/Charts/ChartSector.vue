@@ -5,11 +5,10 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop, Watch} from 'vue-property-decorator';
-import * as echarts from 'echarts';
-import {EChartOption} from 'echarts';
+import echarts, {EChartOption} from 'echarts';
 
 @Component
-export default class ChartOne extends Vue {
+export default class ChartSector extends Vue {
   @Prop() options?: any;
   chart?: any;
 
@@ -20,7 +19,7 @@ export default class ChartOne extends Vue {
   }
 
   @Watch('options')
-  onOptionsChange(newValue:EChartOption) {
+  onOptionsChange(newValue: EChartOption) {
     this.chart!.setOption(newValue);
   }
 }
@@ -28,7 +27,6 @@ export default class ChartOne extends Vue {
 
 <style lang="scss" scoped>
 .wrapper {
-  height: 200px;
+  height: 300px;
 }
-
 </style>

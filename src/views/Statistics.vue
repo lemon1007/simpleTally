@@ -24,17 +24,18 @@
                 <ol class="msgList">
                   <li class="iconLi">
                     <span>
-                      <Icon name="clothes" class="icon"/>
+                      <Icon :name="tagIcon(item.tag)" class="icon"/>
                     </span>
                   </li>
                   <li class="nameAndMsg">
                     <span class="ItemName">{{ tagString(item.tag) }}</span>
-                    <span class="notes">{{item.notes}}</span>
+                    <span class="notes">{{ item.notes }}</span>
                   </li>
                   <li class="totalAmount">
                     <span>
                       {{ item.type }}
                       {{ item.amount }}
+<!--                      <span>删除</span>-->
                     </span>
                   </li>
                 </ol>
@@ -65,6 +66,10 @@ export default class Statistics extends Vue {
     return this.$store.state.recordList;
   }
 
+  get record() {
+    return this.$store.state.currentRecord;
+  }
+
   type: string = '-';
   typeList = typeList;
 
@@ -79,15 +84,15 @@ export default class Statistics extends Vue {
   // 获取item.name
   tagString(tags: tag[]) {
     if (tags) {
-      return tags.length === 0 ? '无' : tags[0].name;
+      return tags.length === 0 ? '其他' : tags[0].name;
     }
   }
 
-  // tagIcon(tags: tag[]) {
-  //   if (tags) {
-  //     return tags.length === 0 ? 'icon' : tags[0].icon;
-  //   }
-  // }
+  tagIcon(tags: tag[]) {
+    if (tags) {
+      return tags.length === 0 ? 'star' : tags[0].icon;
+    }
+  }
 
   // 获取今天，昨天，明天及日期
   beautify(string: string) {
@@ -133,6 +138,16 @@ export default class Statistics extends Vue {
 
     return result;
   }
+
+
+  // removeRecord() {
+  // if (this.record.tag[0].id) {
+  //   this.$store.commit('removeRecord', this.record.tag[0].id);
+  // } else {
+  //   console.log('找不到record');
+  // }
+  // console.log(this.record.tag[0].id)
+  // }
 };
 </script>
 

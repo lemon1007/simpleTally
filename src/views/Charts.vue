@@ -9,16 +9,22 @@
       <ul class="chartsList">
         <li>
           <span>线形图</span>
-          <div class="chartOne-wrapper" ref="chartWrapper">
-            <ChartOne class="chartOne" :options="chartOptions"></ChartOne>
+          <div class="chartLine-wrapper" ref="chartLineWrapper">
+            <ChartLine class="chartLine" :options="chartLineOptions"></ChartLine>
           </div>
         </li>
 
         <li>
           <span>柱形图</span>
+          <div class="chartHistogram-wrapper" ref="chartHistogramWrapper">
+            <ChartHistogram class="chartHistogram" :options="chartHistogramOptions"></ChartHistogram>
+          </div>
         </li>
         <li>
           <span>扇形图</span>
+          <div class="chartSector-wrapper" ref="chartSectorWrapper">
+            <ChartSector class="chartSector" :options="chartSectorOptions"></ChartSector>
+          </div>
         </li>
       </ul>
     </div>
@@ -30,13 +36,15 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Tabs from '@/components/Tabs.vue';
 import typeList from '@/constants/typeList';
-import ChartOne from '@/components/Charts/ChartOne.vue';
 import _ from 'lodash';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
+import ChartLine from '@/components/Charts/ChartLine.vue';
+import ChartHistogram from '@/components/Charts/ChartHistogram.vue';
+import ChartSector from '@/components/Charts/ChartSector.vue';
 
 @Component({
-  components: {ChartOne, Tabs},
+  components: {ChartSector, ChartHistogram, ChartLine, Tabs},
 })
 export default class Charts extends Vue {
   get recordList() {
@@ -55,8 +63,11 @@ export default class Charts extends Vue {
   }
 
   mounted() {
-    const div = (this.$refs.chartWrapper as HTMLDivElement);
-    div.scrollLeft = div.scrollWidth;
+    const divLine = (this.$refs.chartLineWrapper as HTMLDivElement);
+    divLine.scrollLeft = divLine.scrollWidth;
+
+    const divHistogram = (this.$refs.chartHistogramWrapper as HTMLDivElement);
+    divHistogram.scrollLeft = divLine.scrollWidth;
   }
 
   // groupedList获取
@@ -95,12 +106,10 @@ export default class Charts extends Vue {
           .subtract(i, 'day')
           .format('YYYY-MM-DD');
 
-      const found = _.find(this.groupedList, {
-        title: date
-      });
+      const found = _.find(this.groupedList, {title: date});
       array.push({
         createdAt: date,
-        amount: found ? found.total : 0
+        amount: found ? found.total : 0,
       });
     }
     array.sort((a, b) => {
@@ -116,10 +125,29 @@ export default class Charts extends Vue {
     return array;
   }
 
-  get chartOptions() {
+
+  get NameValueList() {
+    const today = new Date();
+    const array = [];
+    for (let i = 0; i <= 6; i++) {
+      const date = dayjs(today)
+          .subtract(i, 'day')
+          .format('YYYY-MM-DD');
+
+      const found = _.find(this.groupedList, {title: date});
+      if (found && found.items[0].amount && found.items[0].tag[0]) {
+        array.push({
+          amount: found.items[0].amount,
+          name: found.items[0].tag[0].name
+        });
+      }
+    }
+    return array;
+  }
+
+  get chartLineOptions() {
     const keys = this.keyValueList.map(item => item.createdAt);
     const values = this.keyValueList.map(item => item.amount);
-
     return {
       // 控制图标与包裹图标的div之间的间距
       grid: {
@@ -135,7 +163,7 @@ export default class Charts extends Vue {
         },
         axisLine: {
           lineStyle: {
-            color: '#af0a0a'  // 字体颜色
+            color: 'black'  // 字体颜色
           }
         },
         axisLabel: {
@@ -151,7 +179,7 @@ export default class Charts extends Vue {
       series: [{
         data: values,
         itemStyle: {
-          color: '#af0a0a'  // 圆点颜色时
+          color: '#ffe600'  // 圆点颜色时
         },
         type: 'line',
         symbolSize: 10, // 圆的大小
@@ -165,6 +193,83 @@ export default class Charts extends Vue {
       }
     };
   }
+
+  get chartHistogramOptions() {
+    const keys = this.keyValueList.map(item => item.createdAt);
+    const values = this.keyValueList.map(item => item.amount);
+    return {
+      grid: {
+        left: 20,
+        right: 0,
+        bottom: 40,
+        top: 20
+      },
+      xAxis: {
+        type: 'category',
+        data: keys,
+        axisTick: {
+          alignWithLabel: true
+        },
+        axisLabel: {
+          formatter: function (value: string) {
+            return value.substr(5);
+          },
+          textStyle: {
+            color: 'black'
+          }
+        }
+      },
+      yAxis: {
+        type: 'value',
+        show: false
+      },
+      series: [
+        {
+          data: values,
+          type: 'bar',
+          itemStyle: {
+            color: '#ffe600'
+          },
+        },
+      ],
+    };
+  }
+
+  get chartSectorOptions() {
+    const keys = this.NameValueList.map(item => item.name);
+    const values = this.NameValueList.map(item => item.amount);
+    return {
+      title: {
+        text: '近7日各项占比',
+        left: 'center'
+      },
+      tooltip: {
+        trigger: 'item'
+      },
+      series: [
+        {
+          type: 'pie',
+          radius: '50%',
+          data: [
+            {value: values[0], name: keys[0]},
+            {value: values[1], name: keys[1]},
+            {value: values[2], name: keys[2]},
+            {value: values[3], name: keys[3]},
+            {value: values[4], name: keys[4]},
+            {value: values[5], name: keys[5]},
+            {value: values[6], name: keys[6]},
+          ],
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: '#333'
+            }
+          }
+        }
+      ]
+    };
+  }
 }
 </script>
 
@@ -175,18 +280,37 @@ export default class Charts extends Vue {
 
   .chartsList {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    height: 82vh;
+    overflow: scroll;
+    padding-bottom: 30px;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     > li {
       width: 90%;
       background-color: white;
-      margin-top: 20px;
+      margin-top: 30px;
       border-radius: 7px;
 
-      .chartOne {
+      .chartLine {
+        width: 430%;
+
+        &-wrapper {
+          overflow: auto;
+
+          &::-webkit-scrollbar {
+            display: none;
+          }
+        }
+      }
+
+      .chartHistogram {
         width: 430%;
 
         &-wrapper {

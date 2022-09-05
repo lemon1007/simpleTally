@@ -7,8 +7,7 @@
           @update:value="onUpdateTags"></Tags>
     <Notes @update:value="onUpdateNotes"></Notes>
     <div class="createAt">
-      <MyInput file-name="时间"
-               placeholder="请输入时间"
+      <MyInput class="createAtInput"
                :value="record.createdAt"
                @update:value="getCreatedAt"
                type="date"/>
@@ -100,7 +99,13 @@ export default class Money extends Vue {
 .createAt {
   background-color: #f5f5f5;
   font-size: 13px;
-  margin-top: -10px;
+  position: relative;
+
+  .createAtInput {
+    position: absolute;
+    top: -46px;
+    left: 59%;
+  }
 }
 
 </style>

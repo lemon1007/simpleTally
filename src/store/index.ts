@@ -10,12 +10,14 @@ type RootState = {
   recordList: RecordItem[],
   tagList: tag[],
   currentTag?: tag
+  // currentRecord?: RecordItem
 }
 const store = new Vuex.Store({
   state: {
     recordList: [],
     tagList: [],
-    currentTag: undefined
+    currentTag: undefined,
+    // currentRecord: undefined
   } as RootState,
 
   mutations: {
@@ -30,6 +32,23 @@ const store = new Vuex.Store({
       store.commit('saveRecord');
       window.alert('添加成功');
     },
+    // removeRecord(state, id: string) {
+    //   let index = -1;
+    //   for (let i = 0; i < state.recordList.length; i++) {
+    //     if (state.recordList[i].tag[0].id === id) {
+    //       index = i;
+    //       break;
+    //     }
+    //   }
+    //   if (index >= 0) {
+    //     state.recordList.splice(index, 1);
+    //     store.commit('saveRecord');
+    //     window.alert('删除成功');
+    //     router.back();
+    //   } else {
+    //     window.alert('删除失败');
+    //   }
+    // },
     saveRecord(state) {
       window.localStorage.setItem('recordList', JSON.stringify(state.recordList));
     },
