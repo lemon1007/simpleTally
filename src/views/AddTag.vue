@@ -5,8 +5,8 @@
         <Icon class="icons" name="return" @click.native="back"/>
       </li>
       <li class="addTitle">新增分类</li>
-      <li @click="createTag">
-        <Icon class="icons" name="ensure"/>
+      <li>
+        <Icon @click.native="createTag" class="icons" name="ensure"/>
       </li>
     </ul>
     <AddTagName @send-tag-name="getTagName"></AddTagName>
@@ -45,12 +45,21 @@ export default class addTags extends Vue {
     this.icon = icon;
   }
 
+  map: { [key: string]: string } = {
+    'tag name duplicated': '标签已存在'
+  };
+
   // 添加标签
   createTag() {
     const name = this.name;
     const icon = this.icon;
+    if (!name) {window.alert('请输入标签名');}
+    if (!icon) {window.alert('请选择标签');}
     if (name && icon) {
       this.$store.commit('createTag', {name, icon});
+      if (this.$store.state.createTagError) {
+        window.alert(this.map[this.$store.state.createTagError.message] || '未知错误');
+      }
     }
   }
 

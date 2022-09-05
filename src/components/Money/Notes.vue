@@ -5,7 +5,7 @@
              placeholder="添加备注"
              @update:value="getNotes"/>
     <!--    <Icon class="timer" name="calendar"/>-->
-<!--    <input type="datetime-local" class="createdAt">-->
+    <!--    <input type="datetime-local" class="createdAt">-->
   </div>
 </template>
 
@@ -19,7 +19,6 @@ import MyInput from '@/components/MyInput.vue';
 })
 export default class Notes extends Vue {
   value: string = '';
-  // createdAt = new Date().toISOString();
 
   getNotes(notes: string) {
     this.value = notes;

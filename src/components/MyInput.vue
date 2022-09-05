@@ -27,7 +27,7 @@ import dayjs from 'dayjs';
 export default class MyInput extends Vue {
   @Prop() fileName!: string;
   @Prop() placeholder?: string;
-  @Prop({default: ''}) readonly value!: string;
+  @Prop({default: ''}) value!: string;
   @Prop() type?: string;
 
   x(isoString: string) {

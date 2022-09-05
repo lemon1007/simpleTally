@@ -33,6 +33,7 @@ import createId from '@/lib/createId';
 import store from '@/store';
 import typeList from '@/constants/typeList';
 import MyInput from '@/components/MyInput.vue';
+import router from '@/router';
 
 
 @Component({
@@ -65,6 +66,10 @@ export default class Money extends Vue {
 
   // 储存用户输入的record信息
   saveRecord() {
+    if (!this.record.tag || this.record.tag.length === 0) {
+      window.alert('请选择标签');
+      return;
+    }
     this.$store.commit('createRecord', this.record);
     if (this.$store.state.createRecordError === null) {
       window.alert('添加成功');

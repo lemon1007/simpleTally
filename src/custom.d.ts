@@ -1,3 +1,10 @@
+type RootState = {
+  recordList: RecordItem[],
+  createRecordError: Error | null,
+  createTagError: Error | null,
+  tagList: tag[],
+  currentTag?: tag
+}
 // 声明一个类型
 type RecordItem = {
   tag: tag[]
