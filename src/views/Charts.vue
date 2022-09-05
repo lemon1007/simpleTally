@@ -244,7 +244,7 @@ export default class Charts extends Vue {
     };
   }
 
-  // 待解决，相同name的amount没有合并
+  // 待解决，相同name的amount没有合并,好像只取了每一天的最后一笔
   get chartSectorOptions() {
     const today = new Date();
     const array = [];
