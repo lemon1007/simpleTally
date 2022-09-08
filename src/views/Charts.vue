@@ -244,10 +244,9 @@ export default class Charts extends Vue {
     };
   }
 
-  // 待解决，相同name的amount没有合并,好像只取了每一天的最后一笔
   get chartSectorOptions() {
     const today = new Date();
-    const tempArr = [];
+    const tempArr: any[] = [];
     for (let i = 0; i <= 29; i++) {
       const date = dayjs(today)
           .subtract(i, 'day')
@@ -258,13 +257,24 @@ export default class Charts extends Vue {
           if (found.items[j]) {
             tempArr.push({
               name: found.items[j].tag[0].name,
-              value: found.items[j].amount.toString()
+              value: found.items[j].amount
             });
           }
         }
-        console.log(tempArr);
       }
     }
+    // key相同时，value相加
+    let targetArr: any[] = [];
+    let keysArr = [...new Set(tempArr.map(item => item.name))];
+    keysArr.forEach(item => {
+      const arr = tempArr.filter(keys => keys.name == item);
+      const sum = arr.reduce((a, b) => a + b.value, 0);
+      targetArr.push({
+        name: item,
+        value: sum
+      });
+    });
+
 
     return {
       title: {
@@ -279,8 +289,8 @@ export default class Charts extends Vue {
         {
           type: 'pie',
           radius: '50%',
-          colorBy: 'data',   // series按系列配色，data按数据配色
-          data: tempArr,
+          colorBy: 'series',   // series按系列配色，data按数据配色
+          data: targetArr,
           emphasis: {
             itemStyle: {
               shadowBlur: 10,
