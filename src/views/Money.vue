@@ -42,6 +42,7 @@ import router from '@/router';
 export default class Money extends Vue {
   // 对象初始化
   record: RecordItem = {
+    id: '',
     tag: [],
     notes: '',
     type: '-',

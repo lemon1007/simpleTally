@@ -33,7 +33,7 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Tabs from '@/components/Tabs.vue';
 import typeList from '@/constants/typeList';
-import _ from 'lodash';
+import _, {map} from 'lodash';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
 import ChartLine from '@/components/Charts/ChartLine.vue';
@@ -247,18 +247,22 @@ export default class Charts extends Vue {
   // 待解决，相同name的amount没有合并,好像只取了每一天的最后一笔
   get chartSectorOptions() {
     const today = new Date();
-    const array = [];
-    for (let i = 0; i <= 30; i++) {
+    const tempArr = [];
+    for (let i = 0; i <= 29; i++) {
       const date = dayjs(today)
           .subtract(i, 'day')
           .format('YYYY-MM-DD');
-
       const found = _.find(this.groupedList, {title: date});
-      if (found && found.items[0].amount && found.items[0].tag[0]) {
-        array.push({
-          value: found.items[0].amount,
-          name: found.items[0].tag[0].name
-        });
+      if (found) {
+        for (let j = 0; j <= found.items.length; j++) {
+          if (found.items[j]) {
+            tempArr.push({
+              name: found.items[j].tag[0].name,
+              value: found.items[j].amount.toString()
+            });
+          }
+        }
+        console.log(tempArr);
       }
     }
 
@@ -276,7 +280,7 @@ export default class Charts extends Vue {
           type: 'pie',
           radius: '50%',
           colorBy: 'data',   // series按系列配色，data按数据配色
-          data: array,
+          data: tempArr,
           emphasis: {
             itemStyle: {
               shadowBlur: 10,

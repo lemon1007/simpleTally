@@ -9,8 +9,8 @@
         <Icon @click.native="createTag" class="icons" name="ensure"/>
       </li>
     </ul>
-      <AddTagName @send-tag-name="getTagName"></AddTagName>
-      <TagList @send-tag-icon="getTagIcon"></TagList>
+    <AddTagName @send-tag-name="getTagName"></AddTagName>
+    <TagList @send-tag-icon="getTagIcon"></TagList>
   </div>
 </template>
 
@@ -19,6 +19,7 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import AddTagName from '@/components/AddTag/AddTagName.vue';
 import TagList from '@/components/AddTag/TagList.vue';
+import router from '@/router';
 
 @Component({
   components: {AddTagName, TagList},
@@ -67,6 +68,7 @@ export default class addTags extends Vue {
       if (this.$store.state.createTagError) {
         window.alert(this.map[this.$store.state.createTagError.message] || '未知错误');
       }
+      router.replace('/money');
     }
   }
 
@@ -101,7 +103,8 @@ export default class addTags extends Vue {
     }
   }
 }
-.content{
+
+.content {
   height: 91vh;
 }
 </style>

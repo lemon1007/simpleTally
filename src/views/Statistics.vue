@@ -20,7 +20,8 @@
               </li>
             </ol>
             <ol class="itemList">
-              <li class="itemLi" v-for="item in group.items" :key="item.id">
+              <router-link :to="`/statistics/edit/${item.id}`" class="itemLi" v-for="item in group.items"
+                           :key="item.id">
                 <ol class="msgList">
                   <li class="iconLi">
                     <span>
@@ -38,7 +39,7 @@
                     </span>
                   </li>
                 </ol>
-              </li>
+              </router-link>
             </ol>
           </li>
         </ol>

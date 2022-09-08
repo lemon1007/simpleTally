@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import clone from '@/lib/clone';
 import createId from '@/lib/createId';
 import router from '@/router';
+import recordId from '@/lib/recordId';
 
 Vue.use(Vuex);
 
@@ -13,18 +14,40 @@ const store = new Vuex.Store({
     createTagError: null,
     tagList: [],
     currentTag: undefined,
+    currentRecord: undefined
   } as RootState,
 
   mutations: {
     // record
+    setCurrentRecord(state, id: string) {
+      state.currentRecord = state.recordList.filter(t => t.id === id)[0];
+    },
     fetchRecords(state) {
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
     },
     createRecord(state, record: RecordItem) {
       const deepRecord = clone(record);
       deepRecord.createdAt = deepRecord.createdAt || new Date().toISOString();
+      deepRecord.id = recordId().toString();
       state.recordList.push(deepRecord);
       store.commit('saveRecord');
+    },
+    removeRecord(state, id: string) {
+      let index = -1;
+      for (let i = 0; i < state.recordList.length; i++) {
+        if (state.recordList[i].id === id) {
+          index = i;
+          break;
+        }
+      }
+      if (index >= 0) {
+        state.recordList.splice(index, 1);
+        store.commit('saveRecord');
+        window.alert('删除成功');
+        router.back();
+      } else {
+        window.alert('删除失败');
+      }
     },
     saveRecord(state) {
       window.localStorage.setItem('recordList', JSON.stringify(state.recordList));
@@ -54,7 +77,6 @@ const store = new Vuex.Store({
         state.tagList.push({id, name: tag.name, icon: tag.icon});
         store.commit('saveTags');
         state.createTagError = new Error('create tag success');
-        router.back();
       }
     },
 

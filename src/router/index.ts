@@ -7,6 +7,7 @@ import NotFound from '@/views/NotFound.vue';
 import AddTag from '@/views/AddTag.vue';
 import EditLabel from '@/views/EditLabel.vue';
 import Charts from '@/views/Charts.vue';
+import EditStatistic from '@/views/EditStatistic.vue';
 
 Vue.use(VueRouter);
 
@@ -38,6 +39,10 @@ const routes = [
     path: '/statistics',
     name: 'statistics',
     component: Statistics
+  },
+  {
+    path: '/statistics/edit/:id',
+    component: EditStatistic
   },
   {
     path: '/charts',

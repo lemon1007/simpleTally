@@ -3,15 +3,17 @@ type RootState = {
   createRecordError: Error | null,
   createTagError: Error | null,
   tagList: tag[],
-  currentTag?: tag
+  currentTag?: tag,
+  currentRecord?: RecordItem
 }
 // 声明一个类型
 type RecordItem = {
+  id: string
   tag: tag[]
   notes: string
   type: string
   amount: number
-  createdAt?: String   // 加？表示可以不存在
+  createdAt?: string   // 加？表示可以不存在
 }
 // 定义单个tag的类型
 type tag = {
