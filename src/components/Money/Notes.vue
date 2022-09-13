@@ -4,8 +4,6 @@
              file-name="备注"
              placeholder="添加备注"
              @update:value="getNotes"/>
-    <!--    <Icon class="timer" name="calendar"/>-->
-    <!--    <input type="datetime-local" class="createdAt">-->
   </div>
 </template>
 

@@ -8,17 +8,20 @@
 
       <ul class="chartsList">
         <li>
+          <span>近30日收支走势</span>
           <div class="chartLine-wrapper" ref="chartLineWrapper">
             <ChartLine class="chartLine" :options="chartLineOptions"></ChartLine>
           </div>
         </li>
 
         <li>
+          <span>近30日收支统计</span>
           <div class="chartHistogram-wrapper" ref="chartHistogramWrapper">
             <ChartHistogram class="chartHistogram" :options="chartHistogramOptions"></ChartHistogram>
           </div>
         </li>
         <li>
+          <span>近30日收支占比</span>
           <div class="chartSector-wrapper" ref="chartSectorWrapper">
             <ChartSector class="chartSector" :options="chartSectorOptions"></ChartSector>
           </div>
@@ -33,7 +36,7 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Tabs from '@/components/Tabs.vue';
 import typeList from '@/constants/typeList';
-import _, {map} from 'lodash';
+import _ from 'lodash';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
 import ChartLine from '@/components/Charts/ChartLine.vue';
@@ -195,7 +198,7 @@ export default class Charts extends Vue {
         left: 20,
         right: 0,
         bottom: 50,
-        top: 40,
+        top: 70,
       },
       xAxis: {
         type: 'category',
@@ -277,11 +280,6 @@ export default class Charts extends Vue {
 
 
     return {
-      title: {
-        text: '近30日各项占比',
-        top: '40px',  // text距离顶部的距离
-        left: 'center'
-      },
       tooltip: {
         trigger: 'item',
       },
@@ -306,7 +304,7 @@ export default class Charts extends Vue {
               }
             }
           },
-          center: ['50%', '57%'],
+          center: ['50%', '53%'],
         },
       ]
     };
@@ -339,6 +337,14 @@ export default class Charts extends Vue {
       margin-top: 30px;
       border-radius: 7px;
       position: relative;
+
+      > span {
+        font-size: 15px;
+        top: 13px;
+        left: 18px;
+        position: absolute;
+        font-weight: 800;
+      }
 
       .chartLine {
         width: 430%;

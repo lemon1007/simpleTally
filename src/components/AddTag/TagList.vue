@@ -24,9 +24,9 @@ export default class TagList extends Vue {
 
   // 选中图标
   selectToggle(tags: string) {
-    const index = this.selectedTags.length;
-    if (index >= 1)
+    if (this.selectedTags.length >= 1) {
       this.selectedTags = [];
+    }
     this.selectedTags.push(tags);
     this.$emit('send-tag-icon', this.selectedTags[0]);
   }

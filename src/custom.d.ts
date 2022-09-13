@@ -4,7 +4,7 @@ type RootState = {
   createTagError: Error | null,
   tagList: tag[],
   currentTag?: tag,
-  currentRecord?: RecordItem
+  currentRecord?: RecordItem,
 }
 // 声明一个类型
 type RecordItem = {

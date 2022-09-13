@@ -14,7 +14,7 @@ const store = new Vuex.Store({
     createTagError: null,
     tagList: [],
     currentTag: undefined,
-    currentRecord: undefined
+    currentRecord: undefined,
   } as RootState,
 
   mutations: {
@@ -66,12 +66,12 @@ const store = new Vuex.Store({
         store.commit('createTag', {name: '交通出行', icon: 'traffic'});
       }
     },
+
     createTag(state, tag) {
       state.createTagError = null;
       const names = state.tagList.map(item => item.name);
       if (names.indexOf(tag.name) >= 0) {
         state.createTagError = new Error('tag name duplicated');
-        return;
       } else {
         const id = createId().toString();
         state.tagList.push({id, name: tag.name, icon: tag.icon});
@@ -102,19 +102,23 @@ const store = new Vuex.Store({
       window.localStorage.setItem('tagList', JSON.stringify(state.tagList));
     },
 
-    updateTag(state, payload: { id: string, name: string, icon: string }) {
+    updateTag: function (state, payload: { id: string, name: string, icon: string }) {
       const {id, name, icon} = payload;
       const idList = state.tagList.map(item => item.id);
       if (idList.indexOf(id) >= 0) {
         const names = state.tagList.map(item => item.name);
+        const index = names.indexOf(name);
+        names.splice(index, 1);
         if (names.indexOf(name) >= 0) {
-          window.alert('标签名已存在');
+          window.alert('标签已存在');
         } else {
           const tag = state.tagList.filter(item => item.id === id)[0];
           tag.name = name;
           tag.id = id;
           tag.icon = icon;
           store.commit('saveTags');
+          window.alert('标签修改成功');
+          router.back();
         }
       }
     },

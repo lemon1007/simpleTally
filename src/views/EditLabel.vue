@@ -9,15 +9,19 @@
           <span>编辑标签</span>
         </li>
         <li>
-          <Icon name="del" class="del icons" @click.native="remove"/>
-          <Icon name="ensure" class="ensure icons" @click.native="updatePrompt"/>
+          <Icon name="del" class="del icons"
+                @click.native="remove"/>
+          <Icon name="ensure"
+                class="ensure icons"
+                @click.native="onUpdateTag"
+          />
         </li>
       </ul>
 
       <MyInput file-name="标签名"
                placeholder="请输入标签名"
                :value="tag.name"
-               @update:value="update"
+               @update:value="updateTagName"
                class="input"/>
 
       <TagList class="tagList" @send-tag-icon="updateIcon"></TagList>
@@ -32,6 +36,7 @@ import MyBtn from '@/components/MyBtn.vue';
 import MyInput from '@/components/MyInput.vue';
 import TagList from '@/components/AddTag/TagList.vue';
 import Icon from '@/components/Icon.vue';
+import router from '@/router';
 
 @Component({
   components: {TagList, MyInput, MyBtn, Icon},
@@ -55,24 +60,20 @@ export default class EditLabel extends Vue {
 
   // 获取用户选择更换的icon
   updateIcon(icon: string) {
-    if (this.tag) {
-      this.tag.icon = icon;
-    }
+    this.tag.icon = icon;
   }
 
   // 更新标签信息
   // 监听事件存在问题，只有input产生变化时才会触发update，只修改icon无法触发update
-  update(name: string) {
-    // console.log(this.tag);
-    if (this.tag) {
-      this.$store.commit('updateTag', {id: this.tag.id, name, icon: this.tag.icon});
-    }
+  updateTagName(name: string) {
+    this.tag.name = name;
+    //   this.$store.commit('updateTag', {id: this.tag.id, name, icon: this.tag.icon});
   }
 
-  // 显示提示并跳转
-  updatePrompt() {
-    alert('修改成功');
-    this.$router.replace('/labels');
+  onUpdateTag() {
+    if (this.tag) {
+      this.$store.commit('updateTag', {id: this.tag.id, name: this.tag.name, icon: this.tag.icon});
+    }
   }
 
   // 删除标签

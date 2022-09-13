@@ -67,13 +67,13 @@ export default class addTags extends Vue {
       this.$store.commit('createTag', {name, icon});
       if (this.$store.state.createTagError) {
         window.alert(this.map[this.$store.state.createTagError.message] || '未知错误');
+        return;
       }
-      router.replace('/money');
     }
   }
 
   back() {
-    this.$router.replace('/');
+    router.back();
   }
 }
 </script>

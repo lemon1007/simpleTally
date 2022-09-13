@@ -35,10 +35,15 @@ export default class Tags extends Vue {
 
   // tag是数组的一个对象,即{name,icon}
   selectToggle(tag: { name: string, icon: string }) {
-    const len = this.selectedTags.length;
-    if (len >= 1)
-      this.selectedTags = [];
-    this.selectedTags.push(tag);
+    const index = this.selectedTags.indexOf(tag);
+    if (index >= 0) {
+      this.selectedTags.splice(index, 1);
+    } else {
+      if (this.selectedTags.length >= 1) {
+        this.selectedTags = [];
+      }
+      this.selectedTags.push(tag);
+    }
     this.$emit('update:value', this.selectedTags);
   }
 
