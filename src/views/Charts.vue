@@ -10,20 +10,20 @@
         <li>
           <span>近30日收支走势</span>
           <div class="chartLine-wrapper" ref="chartLineWrapper">
-            <ChartLine class="chartLine" :options="chartLineOptions"></ChartLine>
+            <Chart class="chartLine" :options="chartLineOptions"></Chart>
           </div>
         </li>
 
         <li>
           <span>近30日收支统计</span>
           <div class="chartHistogram-wrapper" ref="chartHistogramWrapper">
-            <ChartHistogram class="chartHistogram" :options="chartHistogramOptions"></ChartHistogram>
+            <Chart class="chartHistogram" :options="chartHistogramOptions"></Chart>
           </div>
         </li>
         <li>
           <span>近30日收支占比</span>
           <div class="chartSector-wrapper" ref="chartSectorWrapper">
-            <ChartSector class="chartSector" :options="chartSectorOptions"></ChartSector>
+            <Chart class="chartSector" :options="chartSectorOptions"></Chart>
           </div>
         </li>
       </ul>
@@ -39,12 +39,10 @@ import typeList from '@/constants/typeList';
 import _ from 'lodash';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
-import ChartLine from '@/components/Charts/ChartLine.vue';
-import ChartHistogram from '@/components/Charts/ChartHistogram.vue';
-import ChartSector from '@/components/Charts/ChartSector.vue';
+import Chart from '@/components/Chart.vue';
 
 @Component({
-  components: {ChartSector, ChartHistogram, ChartLine, Tabs},
+  components: {Chart, Tabs},
 })
 export default class Charts extends Vue {
   get recordList() {

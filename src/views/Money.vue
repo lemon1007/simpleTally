@@ -5,7 +5,13 @@
           :types="record.type"/>
     <Tags :tag-source.sync="tagList"
           @update:value="onUpdateTags"></Tags>
-    <Notes @update:value="onUpdateNotes"></Notes>
+    <div class="notesWrapper">
+      <MyInput file-name="备注"
+               placeholder="请输入备注"
+               class="notes"
+               @update:value="onUpdateNotes"
+               :value="record.notes"/>
+    </div>
     <div class="createAt">
       <MyInput class="createAtInput"
                :value="record.createdAt"
@@ -23,7 +29,6 @@
 <script lang="ts">
 import Layout from '@/components/Layout.vue';
 import Tags from '@/components/Money/Tags.vue';
-import Notes from '@/components/Money/Notes.vue';
 import NumberPad from '@/components/Money/NumberPad.vue';
 import {Component} from 'vue-property-decorator';
 import Tabs from '@/components/Tabs.vue';
@@ -37,7 +42,7 @@ import router from '@/router';
 
 
 @Component({
-  components: {MyInput, Layout, Tags, Notes, NumberPad, Tabs},
+  components: {MyInput, Layout, Tags, NumberPad, Tabs},
 })
 export default class Money extends Vue {
   // 对象初始化
@@ -74,6 +79,7 @@ export default class Money extends Vue {
     this.$store.commit('createRecord', this.record);
     if (this.$store.state.createRecordError === null) {
       window.alert('添加成功');
+      this.record.notes = '';
     }
   }
 
@@ -105,6 +111,17 @@ export default class Money extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.notesWrapper {
+  background-color: #f5f5f5;
+
+  .notes {
+    width: 240px;
+    font-size: 13px;
+    padding-left: 10px;
+  }
+}
+
+
 .createAt {
   background-color: #f5f5f5;
   font-size: 13px;

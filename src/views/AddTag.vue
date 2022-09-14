@@ -66,8 +66,17 @@ export default class addTags extends Vue {
     if (name && icon) {
       this.$store.commit('createTag', {name, icon});
       if (this.$store.state.createTagError) {
-        window.alert(this.map[this.$store.state.createTagError.message] || '未知错误');
-        return;
+        if (this.$store.state.createTagError.message === 'tag name duplicated') {
+          window.alert('标签已存在');
+          return;
+        } else if (this.$store.state.createTagError.message === 'create tag success') {
+          window.alert('添加成功');
+          router.replace('/money');
+          return;
+        } else {
+          window.alert('未知错误');
+          return;
+        }
       }
     }
   }

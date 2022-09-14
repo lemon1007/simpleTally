@@ -90,6 +90,7 @@ export default class NumberPad extends Vue {
     text-align: right;
     padding: 9px 22px;
     font-family: Consolas, monospace;
+    background-color: white;
   }
 
   .buttons {
